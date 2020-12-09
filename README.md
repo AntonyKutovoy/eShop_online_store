@@ -1,2 +1,2 @@
 # Online_store
-My first ASP.NET Core project
+My first ASP.NET Core project.
