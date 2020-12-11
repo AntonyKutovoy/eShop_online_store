@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
-    public class HomeController : Controller
+    public class AboutController : Controller
     {
-        public IActionResult Index(int id)
+        public IActionResult Start()
         {
-            return View();
+            return View("Index");
         }
     }
 }

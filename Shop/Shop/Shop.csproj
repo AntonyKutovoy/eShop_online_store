@@ -5,24 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="bundleconfig.json" />
-    <Content Remove="compilerconfig.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Views\" />
-    <Folder Include="Domain\" />
-    <Folder Include="Models\ViewComponents\" />
-    <Folder Include="Service\" />
-    <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\sass\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="bundleconfig.json" />
-    <None Include="compilerconfig.json" />
+    <Compile Remove="Areas\**" />
+    <Compile Remove="Domain\**" />
+    <Compile Remove="Service\**" />
+    <Content Remove="Areas\**" />
+    <Content Remove="Domain\**" />
+    <Content Remove="Service\**" />
+    <EmbeddedResource Remove="Areas\**" />
+    <EmbeddedResource Remove="Domain\**" />
+    <EmbeddedResource Remove="Service\**" />
+    <None Remove="Areas\**" />
+    <None Remove="Domain\**" />
+    <None Remove="Service\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +29,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
