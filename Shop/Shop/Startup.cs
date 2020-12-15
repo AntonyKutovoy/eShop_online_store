@@ -1,27 +1,31 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shop.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Shop
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            //добавляем поддержку котроллеров и представлений (MVC)
-            services.AddControllersWithViews()
-                //выставляем совместимость с asp.net core 3.0
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
-            
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<MobileContext>(options => options.UseSqlServer(connection));
+            services.AddControllersWithViews();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //очень важно соблюдать такой порядок регистрации middleware
-
-            //в процессе разработки важно видеть подробную информацию об ошибках
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -29,20 +33,14 @@ namespace Shop
 
             app.UseRouting();
 
-            //подключение поддержки статичных файлов в приложении(css, js и т.д.)
             app.UseStaticFiles();
 
-            //регистрация нужных нам маршрутов (эндпоинтов)
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute("default", "{controller-Home}/{action-Index}/{id?}");
-            //});
         }
     }
 }
