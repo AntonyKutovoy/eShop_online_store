@@ -1,5 +1,27 @@
-﻿<div>
-    <h1>
-        Это главная страница
-    </h1>
-</div>
+﻿@model IEnumerable<Shop.Models.Product>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Интернет-магазин</title>
+</head>
+<body>
+    <h3>Видеокарты</h3>
+    <table>
+        <tr>
+            <td>Наименование</td>
+            <td>Цена</td>
+            <td>Описание</td>
+            <td></td>
+        </tr>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>@product.Description</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
