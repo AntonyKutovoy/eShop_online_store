@@ -2,13 +2,20 @@
 <!DOCTYPE html>
 
 <div class="container">
-    <div class="row">
-        @foreach (var product in Model)
-        {
-            <div class="col">
-                <p>@product.Name</p>
-                <p>Стоимость: @product.Price руб.</p>
-            </div>
-        }
-    </div>
+    <section.text-center mb-4>
+        <div class="row wow fadeIn">
+            @foreach (var product in Model)
+            {
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <img class="card-img-top" src="https://www.kustompcs.co.uk/images/detailed/36/rtx3070b.png" alt="Graphics card" />
+                        <div class="card-body text-center">
+                            <h5>@product.Name</h5>
+                            <h4>@product.Price руб</h4>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section.text-center>
 </div>
