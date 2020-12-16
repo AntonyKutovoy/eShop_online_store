@@ -1,27 +1,14 @@
 ﻿@model IEnumerable<Shop.Models.Product>
 <!DOCTYPE html>
 
-<html>
-<head>
-    <title>Интернет-магазин</title>
-</head>
-<body>
-    <h3>Видеокарты</h3>
-    <table>
-        <tr>
-            <td>Наименование</td>
-            <td>Цена</td>
-            <td>Описание</td>
-            <td></td>
-        </tr>
+<div class="container">
+    <div class="row">
         @foreach (var product in Model)
         {
-            <tr>
-                <td>@product.Name</td>
-                <td>@product.Price</td>
-                <td>@product.Description</td>
-            </tr>
+            <div class="col">
+                <p>@product.Name</p>
+                <p>Стоимость: @product.Price руб.</p>
+            </div>
         }
-    </table>
-</body>
-</html>
+    </div>
+</div>
