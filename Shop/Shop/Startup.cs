@@ -2,9 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shop.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using Shop.Services;
 
 namespace Shop
 {
@@ -18,8 +17,7 @@ namespace Shop
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<MobileContext>(options => options.UseSqlServer(connection));
+            services.AddSingleton<IProductRepository, ProductInMemoryRepository>();
             services.AddControllersWithViews();
 
         }

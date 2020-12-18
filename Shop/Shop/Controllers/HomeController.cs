@@ -1,22 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Shop.Services;
 
 namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
-        MobileContext db;
-        public HomeController(MobileContext context)
+        private readonly IProductRepository repository;
+
+        public HomeController(IProductRepository repository)
         {
-            db = context;
+            this.repository = repository;
         }
         public IActionResult Index()
         {
-            return View(db.Products.ToList());
+            return View(repository.GetAll());
         }
     }
 }
