@@ -7,7 +7,7 @@ namespace Shop.Services
     {
         public static List<Product> GetDefaultProducts()
         {
-            return new List<Product> {
+            var products = new List<Product> {
                     new Product
                     {
                         Id = 1,
@@ -44,6 +44,18 @@ namespace Shop.Services
                         Description = "Здесь будет описание RTX 3050."
                     }
             };
+
+            for (int i = 6; i < 30; i++)
+            {
+                products.Add(new Product
+                {
+                    Id = i,
+                    Name = "NVIDIA GeForce " + i,
+                    Price = i * 10000,
+                    Description = "Здесь будет описание RTX." + i
+                });
+            }
+            return products;
         }
     }
 }
