@@ -27,7 +27,7 @@ namespace Shop.Services
                         Id = 3,
                         Name = "NVIDIA GeForce RTX 3090",
                         Price = 155000,
-                        Description = "Здесь будет описание RTX 3090."
+                        Description = "Здесь будет описание RTX 3090"
                     },
                     new Product
                     {
