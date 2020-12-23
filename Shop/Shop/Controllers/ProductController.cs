@@ -22,7 +22,7 @@ namespace Shop.Controllers
             var products = repository.GetAll();
             var selectedProduct = products.FirstOrDefault(i => i.Id == product.Id);
             selectedProduct = product;
-            return View(selectedProduct);
+            return View();
         }
 
 
