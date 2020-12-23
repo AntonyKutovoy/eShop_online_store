@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Models;
 using Shop.Services;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,30 +10,21 @@ namespace Shop.Controllers
 {
     public class ProductController : Controller
     {
-        public ProductController()
-        { 
+        private readonly IProductRepository repository;
 
+        public ProductController(IProductRepository repository)
+        {
+            this.repository = repository;
         }
 
-        //private const int productsCountPerPage = 8;
-        //private readonly IProductRepository repository;
+        public IActionResult GetProduct(Product product)
+        {
+            var products = repository.GetAll();
+            var selectedProduct = products.FirstOrDefault(i => i.Id == product.Id);
+            selectedProduct = product;
+            return View(selectedProduct);
+        }
 
-        //public HomeController(IProductRepository repository)
-        //{
-        //    this.repository = repository;
-        //}
-        //public IActionResult Index(int page = 1)
-        //{
-        //    var products = repository.GetAll();
-        //    var productsOnCurrentPage = products.Skip((page - 1) * productsCountPerPage).Take(productsCountPerPage).ToList();
 
-        //    var countPages = products.Count / productsCountPerPage;
-        //    if (products.Count % productsCountPerPage > 0)
-        //    {
-        //        countPages++;
-        //    }
-        //    ViewData["countPages"] = countPages;
-        //    return View(productsOnCurrentPage);
-        //}
     }
 }
