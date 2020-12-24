@@ -17,11 +17,10 @@ namespace Shop.Controllers
             this.repository = repository;
         }
 
-        public IActionResult GetProduct(Product product)
+        public IActionResult GetProduct()
         {
-            var products = repository.GetAll();
-            var selectedProduct = products.FirstOrDefault(i => i.Id == product.Id);
-            selectedProduct = product;
+            //var products = repository.GetAll();
+            //var selectedProduct = products.FirstOrDefault(i => i.Id == id);
             return View();
         }
 
