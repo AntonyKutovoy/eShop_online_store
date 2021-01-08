@@ -15,15 +15,7 @@ namespace Shop.Models
 
         public static Cart GetItems(IServiceProvider services)
         {
-            ISession session = services.GetRequiredService<IHttpContextAccessor>()?
-                .HttpContext.Session;
-
-            var context = services.GetService<AppDbContext>();
-            string cartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
-
-            session.SetString("CartId", cartId);
-
-            return new Cart(context) { CartId = cartId };
+            throw new NotImplementedException();
         }
 
         public static void AddToCart(Product product, int amount)

@@ -19,8 +19,6 @@ namespace Shop.Controllers
         }
         public ViewResult Index()
         {
-            var items = cart.GetItems();
-            cart.CartItems = items;
             return View();
         }
     }
