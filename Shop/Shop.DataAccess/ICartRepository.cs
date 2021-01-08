@@ -7,7 +7,7 @@ namespace Shop.DataAccess
     {
         Cart TryGetByUserId(Guid userId);
         Cart Create(Guid userId, Product product);
-        Cart AddProduct(int id, Product product);
+        Cart AddProduct(Guid Guid, Product product);
         Cart Update(Cart existingCart);
     }
 }

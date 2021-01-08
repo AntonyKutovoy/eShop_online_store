@@ -5,7 +5,7 @@ namespace Shop.Models
 {
     public class CartViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public List<CartItemViewModel> Items { get; set; }
     }
 }

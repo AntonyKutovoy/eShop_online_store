@@ -56,7 +56,7 @@ namespace Shop.Models
             };
         }
 
-        public CartViewModel Delete(Guid userId, int cartItemId)
+        public CartViewModel Delete(Guid userId, Guid cartItemId)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             if (existingCart != null)
@@ -67,7 +67,7 @@ namespace Shop.Models
             return GetCurrentCart(userId);
         }
 
-        public CartViewModel UpdateAmount(Guid userId, int cartItemId, int amount)
+        public CartViewModel UpdateAmount(Guid userId, Guid cartItemId, int amount)
         {
             if (amount == 0)
             {
@@ -89,3 +89,4 @@ namespace Shop.Models
             };
         }
     }
+}
