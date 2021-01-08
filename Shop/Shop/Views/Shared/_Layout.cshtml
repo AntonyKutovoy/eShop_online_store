@@ -12,15 +12,6 @@
                 @RenderBody()
             </main>
         </div>
-        @*<div id="main">
-            <div class="container">
-                <div class="row main-row">
-                    <div class="col-8 col-12-medium">
-                        @RenderBody()
-                    </div>
-                </div>
-            </div>
-        </div>*@
         @await Html.PartialAsync("FooterPartial")
     </div>
     @await Html.PartialAsync("ScriptsPartial")
