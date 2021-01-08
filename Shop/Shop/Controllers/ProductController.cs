@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Models;
-using Shop.Services;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Shop.DataAccess;
 
 namespace Shop.Controllers
 {
@@ -22,7 +17,5 @@ namespace Shop.Controllers
             var product = repository.Get(id);
             return View(product);
         }
-
-
     }
 }

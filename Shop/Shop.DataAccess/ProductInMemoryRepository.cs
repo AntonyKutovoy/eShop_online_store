@@ -1,8 +1,8 @@
-using Shop.Models;
+using Shop.DataAccess.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Shop.Services
+namespace Shop.DataAccess
 {
     public class ProductInMemoryRepository : IProductRepository
     {

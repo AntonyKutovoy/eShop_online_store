@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Services;
+using Shop.DataAccess;
 using System.Linq;
 
 namespace Shop.Controllers

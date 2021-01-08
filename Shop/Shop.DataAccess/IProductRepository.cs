@@ -1,7 +1,7 @@
-﻿using Shop.Models;
+﻿using Shop.DataAccess.Models;
 using System.Collections.Generic;
 
-namespace Shop.Services
+namespace Shop.DataAccess
 {
     public interface IProductRepository
     {
