@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess;
+using Shop.Services;
 
 namespace Shop.Controllers
 {
     public class CartController : Controller
     {
-        private readonly IProductRepository repository;
-        public CartController(IProductRepository repository)
+        private readonly CartService cartService;
+
+        public CartController(CartService cartService)
         {
-            this.repository = repository;
+            this.cartService = cartService;
         }
         public ViewResult Index()
         {

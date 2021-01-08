@@ -1,10 +1,11 @@
 using Shop.DataAccess;
 using Shop.DataAccess.Models;
+using Shop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Shop.Models
+namespace Shop.Services
 {
     public class CartService
     {

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shop.DataAccess;
+using Shop.Services;
 
 namespace Shop
 {
@@ -17,7 +18,9 @@ namespace Shop
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<CartService>();
             services.AddSingleton<IProductRepository, ProductInMemoryRepository>();
+            services.AddSingleton<ICartRepository, CartInMemoryRepository>();
             services.AddControllersWithViews();
 
         }
