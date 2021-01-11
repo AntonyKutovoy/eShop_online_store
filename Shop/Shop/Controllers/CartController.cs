@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess;
+using Shop.Models;
 using Shop.Services;
+using System;
 
 namespace Shop.Controllers
 {
@@ -12,9 +14,11 @@ namespace Shop.Controllers
         {
             this.cartService = cartService;
         }
-        public ViewResult Index()
+        public IActionResult Index(ProductViewModel productViewModel)
         {
-            return View();
+            Guid userId = Guid.NewGuid();
+            var cart = cartService.AddProductToCart(productViewModel, userId);
+            return View(cart);
         }
     }
 }
