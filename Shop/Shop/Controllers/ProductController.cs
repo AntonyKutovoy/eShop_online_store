@@ -1,20 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess;
+using Shop.Services;
 
 namespace Shop.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProductRepository repository;
+        private readonly ProductService productService;
 
-        public ProductController(IProductRepository repository)
+        public ProductController(ProductService productService)
         {
-            this.repository = repository;
+            this.productService = productService;
         }
 
         public IActionResult Index(int id)
         {
-            var product = repository.Get(id);
+            var product = productService.GetProduct(id);
             return View(product);
         }
     }

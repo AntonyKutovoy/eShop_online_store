@@ -19,6 +19,7 @@ namespace Shop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<CartService>();
+            services.AddSingleton<ProductService>();
             services.AddSingleton<IProductRepository, ProductInMemoryRepository>();
             services.AddSingleton<ICartRepository, CartInMemoryRepository>();
             services.AddControllersWithViews();

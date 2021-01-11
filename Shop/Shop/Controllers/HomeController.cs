@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess;
+using Shop.Services;
 using System.Linq;
 
 namespace Shop.Controllers
@@ -7,15 +8,15 @@ namespace Shop.Controllers
     public class HomeController : Controller
     {
         private const int productsCountPerPage = 8;
-        private readonly IProductRepository repository;
+        private readonly ProductService productService;
 
-        public HomeController(IProductRepository repository)
+        public HomeController(ProductService productService)
         {
-            this.repository = repository;
+            this.productService = productService;
         }
         public IActionResult Index(int page = 1)
         {
-            var products = repository.GetAll();
+            var products = productService.GetAllProducts();
             var productsOnCurrentPage = products.Skip((page - 1) * productsCountPerPage).Take(productsCountPerPage).ToList();
 
             var countPages = products.Count / productsCountPerPage;
