@@ -10,6 +10,7 @@ namespace Shop.Controllers
     {
         private readonly CartService cartService;
         private readonly ProductService productService;
+        private Guid userId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e");//временная переменная для проверок
 
         public CartController(CartService cartService, ProductService productService)
         {
@@ -19,7 +20,6 @@ namespace Shop.Controllers
         public IActionResult index(int id)
         {
             var product = productService.GetProduct(id);
-            Guid userId = Guid.NewGuid();
             var cart = cartService.AddProductToCart(product, userId);
             return View(cart);
         }

@@ -15,19 +15,15 @@
                             <img class="card-img-top" src="https://www.kustompcs.co.uk/images/detailed/36/rtx3070b.png" alt="Graphics card" />
                         </section>
                         <section class="esh-basket-item esh-basket-item--middle col-xs-3">@item.Product.Name</section>
-                        <section class="esh-basket-item esh-basket-item--middle col-xs-2">@item.Product.Price</section>
+                        <section class="esh-basket-item esh-basket-item--middle col-xs-2">@item.Product.Price руб</section>
                         <section class="esh-basket-item esh-basket-item--middle col-xs-2">
                             <input type="hidden" name="@("Items[" + i + "].Key")" value="@item.Id" />
                             <input type="number" class="esh-basket-input" min="1" name="@("Items[" + i + "].Value")" value="@item.Amount" />
                         </section>
                     </div>
-                    <div class="row">
-
-                    </div>
                 </article>
             }
-
-
         </div>
+        <a href="/home/index?page=1">Назад</a>
     </form>
 </div>
