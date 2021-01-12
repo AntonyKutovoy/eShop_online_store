@@ -5,13 +5,6 @@
 
 
     <form method="post">
-        <article class="esh-basket-titles row">
-            <br />
-            <section class="esh-basket-title col-xs-3">Продукт</section>
-            <section class="esh-basket-title col-xs-3 hidden-lg-down"></section>
-            <section class="esh-basket-title col-xs-2">Цена</section>
-            <section class="esh-basket-title col-xs-2">Количество</section>
-        </article>
         <div class="esh-catalog-items row">
             @for (int i = 0; i < Model.Items.Count; i++)
             {
@@ -19,10 +12,10 @@
                 <article class="esh-basket-items row">
                     <div>
                         <section class="esh-basket-item esh-basket-item--middle col-lg-3 hidden-lg-down">
-                            <img class="esh-basket-image" src="https://www.kustompcs.co.uk/images/detailed/36/rtx3070b.png" />
+                            <img class="card-img-top" src="https://www.kustompcs.co.uk/images/detailed/36/rtx3070b.png" alt="Graphics card" />
                         </section>
                         <section class="esh-basket-item esh-basket-item--middle col-xs-3">@item.Product.Name</section>
-                        <section class="esh-basket-item esh-basket-item--middle col-xs-2">$ @item.Product.Price.ToString("N2")</section>
+                        <section class="esh-basket-item esh-basket-item--middle col-xs-2">@item.Product.Price</section>
                         <section class="esh-basket-item esh-basket-item--middle col-xs-2">
                             <input type="hidden" name="@("Items[" + i + "].Key")" value="@item.Id" />
                             <input type="number" class="esh-basket-input" min="1" name="@("Items[" + i + "].Value")" value="@item.Amount" />

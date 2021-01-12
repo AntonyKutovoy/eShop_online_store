@@ -9,16 +9,21 @@ namespace Shop.Controllers
     public class CartController : Controller
     {
         private readonly CartService cartService;
+        private readonly ProductService productService;
 
-        public CartController(CartService cartService)
+        public CartController(CartService cartService, ProductService productService)
         {
             this.cartService = cartService;
+            this.productService = productService;
         }
-        public IActionResult Index(ProductViewModel productViewModel)
+        public IActionResult index(int id)
         {
+            var product = productService.GetProduct(id);
             Guid userId = Guid.NewGuid();
-            var cart = cartService.AddProductToCart(productViewModel, userId);
+            var cart = cartService.AddProductToCart(product, userId);
             return View(cart);
         }
+
+
     }
 }
