@@ -20,7 +20,19 @@ namespace Shop.Controllers
         public IActionResult index(int id)
         {
             var product = productService.GetProduct(id);
-            var cart = cartService.AddProductToCart(product, userId);
+            var cart = cartService.GetCurrentCart(userId);
+            if (cart.Items.Count > 0)
+            {
+                for (int i = 0; i < cart.Items.Count; i++)
+                {
+                    if (cart.Items[i].Product.Id == product.Id)
+                    {
+                        cart = cartService.UpdateAmount(userId, cart.Items[i].Id, cart.Items[i].Amount + 1);
+                        return View(cart);
+                    }
+                }
+            }
+            cart = cartService.AddProductToCart(product, userId);
             return View(cart);
         }
 
