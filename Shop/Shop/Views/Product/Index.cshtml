@@ -3,21 +3,27 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <h3>@Model.Name</h3>
+        <div class="col-sm-6">
+            <h4>@Model.Name</h4>
             <div class="card">
                 <img class="card-img-top" src="https://www.asus.com/media/global/products/tmjoryooiwa4hfiz/P_setting_fff_1_90_end_600.png" alt="Graphics card" />
             </div>
-            <h3>@Model.Price руб</h3>
+            <h4>@Model.Price руб</h4>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-6">
             <div class="card-body">
                 <h5 class="card-text">@Model.Description</h5>
             </div>
         </div>
-        <div class="col-md-1">
-            <a href="/home/index?page=1">Назад</a>
-            <a href="/cart/index/@Model.Id">Добавить в корзину</a>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-6">
+            <div class="btn-group btns-cart">
+                <a class="btn btn-primary" href="/home/index?page=1" role="button">Продолжить покупки</a>
+                <a class="btn btn-primary" href="/cart/index/@Model.Id" role="button">Добавить в корзину</a>
+            </div>
         </div>
     </div>
 </div>

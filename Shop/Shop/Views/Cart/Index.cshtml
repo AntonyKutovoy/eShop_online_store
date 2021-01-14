@@ -1,98 +1,79 @@
 ﻿@model Shop.Models.CartViewModel
 <!DOCTYPE html>
 
-
 <div class="container-fluid">
-    <div class="row">
-        <div class="col">
+    @if (Model.Items.Any())
+    {
+        <div class="row">
             <div class="col">
-                <span class="title">Корзина</span>
-            </div>
-            <div class="col">
-                <div class="table-responsive">
-                    <table class="table table-bordered tbl-cart">
-                        <thead>
-                            <tr>
-                                <td class="hidden-xs">Изображение</td>
-                                <td>Продукт</td>
-                                <td class="td-qty">Количество</td>
-                                <td>Цена</td>
-                                <td>Общая цена</td>
-                                <td>Удалить</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (int i = 0; i < Model.Items.Count; i++)
-                            {
-                                var item = Model.Items[i];
+                <div class="col">
+                    <span class="title">Корзина</span>
+                </div>
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-bordered tbl-cart">
+                            <thead>
                                 <tr>
-                                    <td class="hidden-xs">
-                                        <img class="card-img-top" src="https://ingame.uz/wp-content/uploads/2020/12/2_optimized-14-300x300.png" alt="Graphics card" />
-                                    </td>
-                                    <td>
-                                        <a>@item.Product.Name</a>
-                                    </td>
-                                    <td>
-                                        <div class="input-group bootstrap-touchspin">
-                                            <span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" type="button">-</button></span>
-                                            <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
-                                            <input type="text" name="" value="@item.Amount" class="input-qty form-control text-center" style="display: block;">
-                                            <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
-                                            <span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span>
-                                        </div>
-                                    </td>
-                                    <td class="price">@item.Product.Price руб</td>
-                                    <td>Здесь будет общая цена</td>
-                                    <td class="text-center">
-                                        <a href="#" class="remove_cart" rel="2">
-                                            <i class="fa fa-trash-o"></i>
-                                        </a>
+                                    <td></td>
+                                    <td>Продукт</td>
+                                    <td>Количество</td>
+                                    <td>Цена</td>
+                                    <td>Общая цена</td>
+                                    <td>Удалить</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Items.Count; i++)
+                                {
+                                    var item = Model.Items[i];
+                                    <tr>
+                                        <td>
+                                            <img class="card-img-top" src="https://ingame.uz/wp-content/uploads/2020/12/2_optimized-14-300x300.png" alt="Graphics card" />
+                                        </td>
+                                        <td>
+                                            <a>@item.Product.Name</a>
+                                        </td>
+                                        <td>
+                                            <input type="number" class="esh-basket-input" min="" name="" value="@item.Amount" />
+                                        </td>
+                                        <td>@item.Product.Price руб</td>
+                                        <td>Здесь будет общая цена</td>
+                                        <td>
+                                            <a href="#" class="remove_cart" rel="2">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="6" align="right">Итого</td>
+                                    <td class="total" colspan="2">
+                                        <b>Здесь будет итоговая сумма</b>
                                     </td>
                                 </tr>
-                            }
-                            <tr>
-                                <td colspan="6" align="right">Итого</td>
-                                <td class="total" colspan="2">
-                                    <b>Здесь будет итоговая сумма</b>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="btn-group btns-cart">
-                    <a class="btn btn-primary" href="/home/index?page=1" role="button"><i class="fa fa-arrow-circle-left"></i>Продолжить покупки</a>
-                    <a class="btn btn-primary" href="#" role="button">Обновить корзину</a>
-                    <a class="btn btn-primary" href="#" role="button">Чекаут <i class="fa fa-arrow-circle-right"></i></a>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="btn-group btns-cart">
+                        <a class="btn btn-primary" href="/home/index?page=1" role="button"><i class="fa fa-arrow-circle-left"></i>Продолжить покупки</a>
+                        <a class="btn btn-primary" href="#" role="button">Обновить корзину</a>
+                        <a class="btn btn-primary" href="#" role="button">Чекаут <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Корзина пустая.</h4>
+            </div>
+            <div class="col-sm-6">
+                <a class="btn btn-primary" href="/home/index?page=1" role="button">Продолжить покупки</a>
+            </div>
+        </div>
+    }
 </div>
 
-@*<div class="container">
-        <div class="row">
-            @for (int i = 0; i < Model.Items.Count; i++)
-            {
-                var item = Model.Items[i];
-                <div class="col-sm">
-                    <img class="card-img-top" src="https://ingame.uz/wp-content/uploads/2020/12/2_optimized-14-300x300.png" alt="Graphics card" />
-                </div>
-                <div class="col-sm">
-                    <a>@item.Product.Name</a>
-                </div>
-                <div class="col-sm">
-                    <a>@item.Amount</a>
-                </div>
-                <div class="col-sm">
-                    <a>@item.Product.Price руб</a>
-                </div>
-                <div class="col-sm">
-                    <a>Итоговая сумма</a>
-                </div>
-                <div class="col-sm">
-                    One of six columns
-                </div>
-            }
-        </div>
-    </div>*@
