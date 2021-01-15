@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.DataAccess;
-using Shop.DataAccess.Models;
-using Shop.Models;
 using Shop.Services;
 using System;
 
@@ -19,22 +16,10 @@ namespace Shop.Controllers
             this.productService = productService;
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index(Guid id)
         {
             var product = productService.GetProduct(id);
-            var cart = cartService.GetCurrentCart(userId);
-            if (cart.Items.Count > 0)
-            {
-                for (int i = 0; i < cart.Items.Count; i++)
-                {
-                    if (cart.Items[i].Product.Id == product.Id)
-                    {
-                        cart = cartService.UpdateAmount(userId, cart.Items[i].Id, cart.Items[i].Amount + 1);
-                        return View(cart);
-                    }
-                }
-            }
-            cart = cartService.AddProductToCart(product, userId);
+            var cart = cartService.AddProductToCart(product, userId);
             return View(cart);
         }
 

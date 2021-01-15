@@ -11,13 +11,21 @@ namespace Shop.DataAccess
         public Cart AddProduct(Guid id, Product product)
         {
             var cart = carts.FirstOrDefault(x => x.Id == id);
-            cart.Items.Add(new CartItem
+            var existingSameProduct = cart.Items.FirstOrDefault(x => x.Product.Id == product.Id);
+            if (existingSameProduct != null)
             {
-                Id = Guid.NewGuid(),
-                Amount = 1,
-                Product = product,
-                CartId = id,
-            });
+                existingSameProduct.Amount += 1;
+            }
+            else
+            {
+                cart.Items.Add(new CartItem
+                {
+                    Id = Guid.NewGuid(),
+                    Amount = 1,
+                    Product = product,
+                    CartId = id,
+                });
+            }
             return cart;
         }
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.DataAccess;
 using Shop.Services;
+using System;
 
 namespace Shop.Controllers
 {
@@ -13,7 +13,7 @@ namespace Shop.Controllers
             this.productService = productService;
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index(Guid id)
         {
             var product = productService.GetProduct(id);
             return View(product);

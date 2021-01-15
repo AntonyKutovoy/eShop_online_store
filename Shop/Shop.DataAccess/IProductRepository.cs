@@ -1,4 +1,5 @@
 ﻿using Shop.DataAccess.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Shop.DataAccess
@@ -6,6 +7,6 @@ namespace Shop.DataAccess
     public interface IProductRepository
     {
         List<Product> GetAll();
-        Product Get(int id);
+        Product Get(Guid id);
     }
 }

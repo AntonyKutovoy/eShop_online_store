@@ -28,7 +28,7 @@ namespace Shop.Services
             return productsViewModel;
         }
 
-        public ProductViewModel GetProduct (int id)
+        public ProductViewModel GetProduct (Guid id)
         {
             var product = productRepository.Get(id);
             var productViewModel = product.ToProductViewModel();
