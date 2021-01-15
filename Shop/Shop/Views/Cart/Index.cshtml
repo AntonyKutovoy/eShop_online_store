@@ -37,18 +37,16 @@
                                             <input type="number" class="esh-basket-input" min="" name="" value="@item.Amount" />
                                         </td>
                                         <td>@item.Product.Price руб</td>
-                                        <td>Здесь будет общая цена</td>
+                                        <td>@item.Price руб</td>
                                         <td>
-                                            <a href="#" class="remove_cart" rel="2">
-                                                <i class="fa fa-trash-o"></i>
-                                            </a>
+                                            <a class="btn btn-primary" href="/cart/delete?itemId=@item.Id" role="button"><i class="fa fa-arrow-circle-left"></i>Удалить</a>
                                         </td>
                                     </tr>
                                 }
                                 <tr>
                                     <td colspan="6" align="right">Итого</td>
                                     <td class="total" colspan="2">
-                                        <b>Здесь будет итоговая сумма</b>
+                                        <b>@Model.FullPrice руб</b>
                                     </td>
                                 </tr>
                             </tbody>

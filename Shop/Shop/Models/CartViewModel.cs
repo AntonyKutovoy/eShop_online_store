@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shop.Models
 {
@@ -7,5 +8,7 @@ namespace Shop.Models
     {
         public Guid Id { get; set; }
         public List<CartItemViewModel> Items { get; set; }
+
+        public decimal FullPrice => Items.Sum(x => x.Price);
     }
 }

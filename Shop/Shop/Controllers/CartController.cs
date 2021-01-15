@@ -16,14 +16,22 @@ namespace Shop.Controllers
             this.productService = productService;
         }
 
-        public IActionResult Index(Guid id)
+        public IActionResult Index()
         {
-            var product = productService.GetProduct(id);
-            var cart = cartService.AddProductToCart(product, userId);
-            return View(cart);
+            return View(cartService.GetCurrentCart(userId));
         }
 
+        public IActionResult Add(Guid id)
+        {
+            var product = productService.GetProduct(id);
+            cartService.AddProductToCart(product, userId);
+            return RedirectToAction("Index");
+        }
 
-
+        public IActionResult Delete(Guid itemId)
+        {
+            cartService.Delete(userId, itemId);
+            return RedirectToAction("Index");
+        }
     }
 }
