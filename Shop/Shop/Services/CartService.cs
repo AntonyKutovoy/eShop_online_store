@@ -70,12 +70,6 @@ namespace Shop.Services
 
         public CartViewModel UpdateAmount(Guid userId, Guid cartItemId, int amount)
         {
-            if (amount == 0)
-            {
-                Delete(userId, cartItemId);
-                return GetCurrentCart(userId);
-            }
-
             var existingCart = cartRepository.TryGetByUserId(userId);
             if (existingCart != null)
             {

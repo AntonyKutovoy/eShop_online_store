@@ -4,63 +4,69 @@
 <div class="container-fluid">
     @if (Model.Items.Any())
     {
-        <div class="row">
-            <div class="col">
+        <form method="post">
+            <div class="row">
                 <div class="col">
-                    <span class="title">Корзина</span>
-                </div>
-                <div class="col">
-                    <div class="table-responsive">
-                        <table class="table table-bordered tbl-cart">
-                            <thead>
-                                <tr>
-                                    <td></td>
-                                    <td>Продукт</td>
-                                    <td>Количество</td>
-                                    <td>Цена</td>
-                                    <td>Общая цена</td>
-                                    <td>Удалить</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for (int i = 0; i < Model.Items.Count; i++)
-                                {
-                                    var item = Model.Items[i];
+                    <div class="col">
+                        <span class="title">Корзина</span>
+                    </div>
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table table-bordered tbl-cart">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <img class="card-img-top" src="https://ingame.uz/wp-content/uploads/2020/12/2_optimized-14-300x300.png" alt="Graphics card" />
-                                        </td>
-                                        <td>
-                                            <a>@item.Product.Name</a>
-                                        </td>
-                                        <td>
-                                            <input type="number" class="esh-basket-input" min="" name="" value="@item.Amount" />
-                                        </td>
-                                        <td>@item.Product.Price руб</td>
-                                        <td>@item.Price руб</td>
-                                        <td>
-                                            <a class="btn btn-primary" href="/cart/delete?itemId=@item.Id" role="button"><i class="fa fa-arrow-circle-left"></i>Удалить</a>
+                                        <td></td>
+                                        <td>Продукт</td>
+                                        <td>Количество</td>
+                                        <td>Цена</td>
+                                        <td>Общая цена</td>
+                                        <td>Удалить</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Items.Count; i++)
+                                    {
+                                        var item = Model.Items[i];
+                                        <tr>
+                                            <td>
+                                                <img class="card-img-top" src="https://ingame.uz/wp-content/uploads/2020/12/2_optimized-14-300x300.png" alt="Graphics card" />
+                                            </td>
+                                            <td>
+                                                <a>@item.Product.Name</a>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="@("Items[" + i + "].Key")" value="@item.Id" />
+                                                <input type="number" class="esh-basket-input" min="1" name="@("Items[" + i + "].Value")" value="@item.Amount" />
+                                            </td>
+                                            <td>@item.Product.Price руб</td>
+                                            <td>@item.Price руб</td>
+                                            <td>
+                                                <a class="btn btn-primary" href="/cart/delete?itemId=@item.Id" role="button"><i class="fa fa-arrow-circle-left"></i>Удалить</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td colspan="6" align="right">Итого</td>
+                                        <td class="total" colspan="2">
+                                            <b>@Model.FullPrice руб</b>
                                         </td>
                                     </tr>
-                                }
-                                <tr>
-                                    <td colspan="6" align="right">Итого</td>
-                                    <td class="total" colspan="2">
-                                        <b>@Model.FullPrice руб</b>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="btn-group btns-cart">
-                        <a class="btn btn-primary" href="/home/index?page=1" role="button"><i class="fa fa-arrow-circle-left"></i>Продолжить покупки</a>
-                        <a class="btn btn-primary" href="#" role="button">Обновить корзину</a>
-                        <a class="btn btn-primary" href="#" role="button">Чекаут <i class="fa fa-arrow-circle-right"></i></a>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="btn-group btns-cart">
+                            <a class="btn btn-primary" href="/home/index?page=1" role="button"><i class="fa fa-arrow-circle-left"></i>Продолжить покупки</a>
+                            <button class="btn btn-primary" name="updatebutton" value="" type="submit"
+                                    asp-action="Update">
+                                Обновить корзину
+                            </button>
+                            <a class="btn btn-primary" href="#" role="button">Чекаут <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
+        </form>
     }
     else
     {

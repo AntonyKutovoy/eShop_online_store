@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Services;
 using System;
+using System.Collections.Generic;
 
 namespace Shop.Controllers
 {
@@ -33,5 +34,15 @@ namespace Shop.Controllers
             cartService.Delete(userId, itemId);
             return RedirectToAction("Index");
         }
+        public IActionResult Update(Dictionary<Guid, int> items)
+        {
+            foreach (var item in items)
+            {
+                cartService.UpdateAmount(userId, item.Key, item.Value);
+            }
+            
+            return RedirectToAction("Index");
+        }
+
     }
 }
