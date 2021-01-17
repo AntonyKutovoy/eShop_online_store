@@ -2,27 +2,43 @@
 <!DOCTYPE html>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <h4>@Model.Name</h4>
-            <div class="card">
-                <img class="card-img-top" src="https://www.asus.com/media/global/products/tmjoryooiwa4hfiz/P_setting_fff_1_90_end_600.png" alt="Graphics card" />
+    <div class="album py-5">
+        <div class="row">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="mdb-lightbox">
+                    <div class="row product-gallery mx-1">
+                        <div class="col-12 mb-0">
+                            <img class="card-img-top" src="https://dlcdnwebimgs.asus.com/gain/df46de79-f931-478f-bcc4-6cf270d95f08/" alt="Graphics card" />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h4>@Model.Price руб</h4>
-        </div>
-        <div class="col-sm-6">
-            <div class="card-body">
-                <h5 class="card-text">@Model.Description</h5>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-        </div>
-        <div class="col-sm-6">
-            <div class="btn-group btns-cart">
-                <a class="btn btn-primary" href="/home/index?page=1" role="button">Продолжить покупки</a>
-                <a class="btn btn-primary" href="/cart/add/@Model.Id" role="button">Добавить в корзину</a>
+            <div class="col-md-6">
+                <h5>@Model.Name</h5>
+                <p><span class="mr-1"><strong>@Model.Price руб</strong></span></p>
+                <p class="pt-1"> @Model.Description</p>
+                <div class="table-responsive mb-2">
+                    @*<table class="table table-sm table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td class="pl-0 pb-0 w-25">Quantity</td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        <div class="def-number-input number-input safari_only mb-0">
+                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                    class="minus"></button>
+                                            <input class="quantity" min="0" name="quantity" value="1" type="number">
+                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                    class="plus"></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>*@
+                </div>
+                <a class="btn btn-dark" href="/home/index?page=1" role="button">Продолжить покупки</a>
+                <a class="btn btn-dark" href="/cart/add/@Model.Id" role="button">Добавить в корзину</a>
             </div>
         </div>
     </div>

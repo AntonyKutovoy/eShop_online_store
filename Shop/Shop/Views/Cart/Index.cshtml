@@ -1,81 +1,69 @@
 ﻿@model Shop.Models.CartViewModel
 <!DOCTYPE html>
 
-<div class="container-fluid">
+
+<div class="container">
     @if (Model.Items.Any())
     {
         <form method="post">
             <div class="row">
-                <div class="col">
-                    <div class="col">
-                        <span class="title">Корзина</span>
-                    </div>
-                    <div class="col">
-                        <div class="table-responsive">
-                            <table class="table table-bordered tbl-cart">
-                                <thead>
-                                    <tr>
-                                        <td></td>
-                                        <td>Продукт</td>
-                                        <td>Количество</td>
-                                        <td>Цена</td>
-                                        <td>Общая цена</td>
-                                        <td>Удалить</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (int i = 0; i < Model.Items.Count; i++)
-                                    {
-                                        var item = Model.Items[i];
-                                        <tr>
-                                            <td>
-                                                <img class="card-img-top" src="https://ingame.uz/wp-content/uploads/2020/12/2_optimized-14-300x300.png" alt="Graphics card" />
-                                            </td>
-                                            <td>
-                                                <a>@item.Product.Name</a>
-                                            </td>
-                                            <td>
-                                                <input type="hidden" name="@("Items[" + i + "].Key")" value="@item.Id" />
-                                                <input type="number" class="esh-basket-input" min="1" name="@("Items[" + i + "].Value")" value="@item.Amount" />
-                                            </td>
-                                            <td>@item.Product.Price руб</td>
-                                            <td>@item.Price руб</td>
-                                            <td>
-                                                <a class="btn btn-primary" href="/cart/delete?itemId=@item.Id" role="button"><i class="fa fa-arrow-circle-left"></i>Удалить</a>
-                                            </td>
-                                        </tr>
-                                    }
-                                    <tr>
-                                        <td colspan="6" align="right">Итого</td>
-                                        <td class="total" colspan="2">
-                                            <b>@Model.FullPrice руб</b>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="col-lg-12 pl-3 pt-3">
+                    <div>
+                        <div class="album py-2"><h2>Корзина:</h2></div>
+                        @for (int i = 0; i < Model.Items.Count; i++)
+                        {
+                            var item = Model.Items[i];
+                            <div class="d-flex flex-md-row flex-column justify-content-between">
+                                <div>
+                                    <b>@item.Product.Name</b>
+                                </div>
+                                <div>
+                                    <div><b>Количество</b></div>
+                                    <input type="hidden" name="@("Items[" + i + "].Key")" value="@item.Id" />
+                                    <input type="number" class="esh-basket-input" min="1" name="@("Items[" + i + "].Value")" value="@item.Amount" />
+                                </div>
+                                <div>
+                                    <div><b>Цена:</b></div>
+                                    @item.Product.Price руб
+                                </div>
+                                <div>
+                                    <div><b>Общая цена:</b></div>
+                                    @item.Price руб
+                                </div>
+                                <div>
+                                    <a class="btn btn-dark" href="/cart/delete?itemId=@item.Id" role="button"><i class="fa fa-arrow-circle-left"></i>Удалить</a>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <img width="200" height="200" src="https://dlcdnwebimgs.asus.com/gain/df46de79-f931-478f-bcc4-6cf270d95f08/" alt="Graphics card" />
+                                </div>
+                            </div>
+                            <div class="album py-4"></div>
+                        }
+                        <div>
+                            <div class="text-md-right">
+                                <div><b>Итого:</b></div>
+                                <b>@Model.FullPrice руб</b>
+                            </div>
                         </div>
-                        <div class="btn-group btns-cart">
-                            <a class="btn btn-primary" href="/home/index?page=1" role="button"><i class="fa fa-arrow-circle-left"></i>Продолжить покупки</a>
-                            <button class="btn btn-primary" name="updatebutton" value="" type="submit"
-                                    asp-action="Update">
-                                Обновить корзину
-                            </button>
-                            <a class="btn btn-primary" href="#" role="button">Чекаут <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
+                        <a class="btn btn-dark" href="/home/index?page=1" role="button"><i class="button"></i>Продолжить покупки</a>
+                        <button class="btn btn-dark" name="updatebutton" value="" type="submit"
+                                asp-action="Update">
+                            Обновить корзину
+                        </button>
+                        <a class="btn btn-dark" href="#" role="button">Чекаут <i class="button"></i></a>
                     </div>
                 </div>
-
             </div>
         </form>
     }
     else
     {
-        <div class="row">
-            <div class="col-sm-6">
-                <h4>Корзина пустая.</h4>
-            </div>
-            <div class="col-sm-6">
-                <a class="btn btn-primary" href="/home/index?page=1" role="button">Продолжить покупки</a>
+        <div class="album py-5">
+            <div class="starter-template">
+                <h2>Корзина пустая</h2>
+                Нажмите, чтобы <a style="color:darkgray" href="/home/index?page=1">продолжить покупки...</a>
             </div>
         </div>
     }
