@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess;
 using Shop.Services;
+using System;
 using System.Linq;
 
 namespace Shop.Controllers
@@ -9,10 +10,13 @@ namespace Shop.Controllers
     {
         private const int productsCountPerPage = 8;
         private readonly ProductService productService;
+        private readonly CartService cartService;
+        private Guid userId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e");//временная переменная для проверок
 
-        public HomeController(ProductService productService)
+        public HomeController(ProductService productService, CartService cartService)
         {
             this.productService = productService;
+            this.cartService = cartService;
         }
         public IActionResult Index(int page = 1)
         {
@@ -25,6 +29,7 @@ namespace Shop.Controllers
                 countPages++;
             }
             ViewData["countPages"] = countPages;
+            ViewData["productInCartCount"] = cartService.GetCurrentCart(userId).AllAmount;
             return View(productsOnCurrentPage);
         }
     }

@@ -10,5 +10,6 @@ namespace Shop.Models
         public List<CartItemViewModel> Items { get; set; }
 
         public decimal FullPrice => Items.Sum(x => x.Price);
+        public int AllAmount => Items.Sum(x => x.Amount);
     }
 }
