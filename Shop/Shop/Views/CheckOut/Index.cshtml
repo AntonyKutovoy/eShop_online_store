@@ -1,0 +1,49 @@
+﻿
+<!DOCTYPE html>
+
+
+
+<body class="bg-light">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Чекаут</h2>
+            <p class="lead">Для завершения покупки введите вашу фамилию, имя и e-mail.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-12 order-md-1">
+                <h4 class="mb-3">Данные покупателя</h4>
+                <form class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-6 col-md-4 mb-3">
+                            <label for="firstName">Имя</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                            <div class="invalid-feedback">
+                                Заполните это поле.
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 mb-3">
+                            <label for="lastName">Фамилия</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                            <div class="invalid-feedback">
+                                Заполните это поле.
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="">
+                            <div class="invalid-feedback">
+                                Заполните это поле.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-6 col-md-4 mb-3">
+                            <button class="btn btn-dark btn-lg btn-block" type="submit">Отправить данные</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
