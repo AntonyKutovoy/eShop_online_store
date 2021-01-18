@@ -68,6 +68,15 @@ namespace Shop.Services
             return GetCurrentCart(userId);
         }
 
+        public void DeleteCart(Guid userId)
+        {
+            var existingCart = cartRepository.TryGetByUserId(userId);
+            if (existingCart != null)
+            {
+                cartRepository.Delete(userId);
+            }
+        }
+
         public CartViewModel UpdateAmount(Guid userId, Guid cartItemId, int amount)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);

@@ -49,6 +49,11 @@ namespace Shop.DataAccess
             return cart;
         }
 
+        public void Delete(Guid userId)
+        {
+            carts.Remove(TryGetByUserId(userId));
+        }
+
         public Cart TryGetByUserId(Guid userId)
         {
             var cart = carts.FirstOrDefault(x => x.UserId == userId);

@@ -1,7 +1,5 @@
-﻿
+﻿@model Shop.Models.CartViewModel
 <!DOCTYPE html>
-
-
 
 <body class="bg-light">
     <div class="container">
@@ -38,7 +36,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-6 col-md-4 mb-3">
-                            <button class="btn btn-dark btn-lg btn-block" type="submit">Отправить данные</button>
+                            <a class="btn btn-dark btn-lg btn-block" href="/checkout/getnewcart/" role="button">Отправить данные</a>
                         </div>
                     </div>
                 </form>
@@ -46,4 +44,3 @@
         </div>
     </div>
 </body>
-

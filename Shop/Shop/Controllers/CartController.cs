@@ -30,11 +30,6 @@ namespace Shop.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(Guid itemId)
-        {
-            cartService.Delete(userId, itemId);
-            return RedirectToAction("Index");
-        }
         public IActionResult Update(Dictionary<Guid, int> items)
         {
             foreach (var item in items)
