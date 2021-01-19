@@ -36,7 +36,25 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-6 col-md-4 mb-3">
-                            <a class="btn btn-dark btn-lg btn-block" href="/checkout/getnewcart/" role="button">Отправить данные</a>
+                            <button type="button" class="btn btn-dark btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Отправить данные</button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Заказ отправлен</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Спасибо за заказ! Мы свяжемся с Вами в самое ближайшее время!
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-dark" href="/checkout/getnewcart/" role="button">Закрыть</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
