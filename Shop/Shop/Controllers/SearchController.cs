@@ -22,16 +22,16 @@ namespace Shop.Controllers
         }
         public IActionResult Index(int page = 1)
         {
-            var searchProducts = new List<ProductViewModel>();
-            var productsOnCurrentPage = searchProducts.Skip((page - 1) * productsCountPerPage).Take(productsCountPerPage).ToList();
-            var countPages = searchProducts.Count / productsCountPerPage;
-            if (searchProducts.Count % productsCountPerPage > 0)
-            {
-                countPages++;
-            }
-            ViewData["countPages"] = countPages;
-            ViewData["productInCartCount"] = cartService.GetCurrentCart(userId).AllAmount;
-            return View(productsOnCurrentPage);
+            //var productsOnCurrentPage = searchProducts.Skip((page - 1) * productsCountPerPage).Take(productsCountPerPage).ToList();
+            //var countPages = searchProducts.Count / productsCountPerPage;
+            //if (searchProducts.Count % productsCountPerPage > 0)
+            //{
+            //    countPages++;
+            //}
+            //ViewData["countPages"] = countPages;
+            //ViewData["productInCartCount"] = cartService.GetCurrentCart(userId).AllAmount;
+            //return View(productsOnCurrentPage);
+            return View();
         }
 
         public IActionResult Search(string searchproduct)
@@ -45,9 +45,9 @@ namespace Shop.Controllers
                     if (searchProduct.Name.Contains(searchproduct))
                     {
                         searchProducts.Add(searchProduct);
+                        ViewData["test"] = searchProducts.Count();//переменная для проверки (удалить)
                     }
                 }
-                //var searchProducts = products.Where(s => s.Name.Contains(searchproduct));
             }
             return RedirectToAction("Index");
         }
