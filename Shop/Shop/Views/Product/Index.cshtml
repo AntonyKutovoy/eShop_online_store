@@ -18,24 +18,6 @@
                 <p><span class="mr-1"><strong>@Model.Price руб</strong></span></p>
                 <p class="pt-1"> @Model.Description</p>
                 <div class="table-responsive mb-2">
-                    @*<table class="table table-sm table-borderless">
-                            <tbody>
-                                <tr>
-                                    <td class="pl-0 pb-0 w-25">Quantity</td>
-                                </tr>
-                                <tr>
-                                    <td class="pl-0">
-                                        <div class="def-number-input number-input safari_only mb-0">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                    class="minus"></button>
-                                            <input class="quantity" min="0" name="quantity" value="1" type="number">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                    class="plus"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>*@
                 </div>
                 <a class="btn btn-dark" href="/home/index?page=1" role="button">Продолжить покупки</a>
                 <a class="btn btn-dark" href="/cart/add/@Model.Id" role="button">Добавить в корзину</a>

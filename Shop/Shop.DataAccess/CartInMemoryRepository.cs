@@ -8,6 +8,7 @@ namespace Shop.DataAccess
     public class CartInMemoryRepository : ICartRepository
     {
         private List<Cart> carts = new List<Cart>();
+        private List<Cart> cartsForOrderPreparation = new List<Cart>();
         public Cart AddProduct(Guid id, Product product)
         {
             var cart = carts.FirstOrDefault(x => x.Id == id);
@@ -49,8 +50,9 @@ namespace Shop.DataAccess
             return cart;
         }
 
-        public void Delete(Guid userId)
+        public void SaveForOrderPreparation(Guid userId)
         {
+            cartsForOrderPreparation.Add(TryGetByUserId(userId));
             carts.Remove(TryGetByUserId(userId));
         }
 

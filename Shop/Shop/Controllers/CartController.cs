@@ -19,7 +19,7 @@ namespace Shop.Controllers
 
         public IActionResult Index()
         {
-            ViewData["productInCartCount"] = cartService.GetCurrentCart(userId).AllAmount;
+            ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
             return View(cartService.GetCurrentCart(userId));
         }
 
@@ -40,5 +40,10 @@ namespace Shop.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Delete(Guid itemId)
+        {
+            cartService.Delete(userId, itemId);
+            return RedirectToAction("Index");
+        }
     }
 }

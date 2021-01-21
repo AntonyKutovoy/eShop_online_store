@@ -68,12 +68,12 @@ namespace Shop.Services
             return GetCurrentCart(userId);
         }
 
-        public void DeleteCart(Guid userId)
+        public void SaveOrder(Guid userId)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             if (existingCart != null)
             {
-                cartRepository.Delete(userId);
+                cartRepository.SaveForOrderPreparation(userId);
             }
         }
 

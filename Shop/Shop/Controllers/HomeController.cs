@@ -29,7 +29,7 @@ namespace Shop.Controllers
                 countPages++;
             }
             ViewData["countPages"] = countPages;
-            ViewData["productInCartCount"] = cartService.GetCurrentCart(userId).AllAmount;
+            ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
             return View(productsOnCurrentPage);
         }
     }

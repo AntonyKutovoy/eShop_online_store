@@ -19,7 +19,7 @@ namespace Shop.Controllers
         public IActionResult Index(Guid id)
         {
             var product = productService.GetProduct(id);
-            ViewData["productInCartCount"] = cartService.GetCurrentCart(userId).AllAmount;
+            ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
             return View(product);
         }
     }

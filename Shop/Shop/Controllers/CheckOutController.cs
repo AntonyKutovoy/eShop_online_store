@@ -20,13 +20,13 @@ namespace Shop.Controllers
 
         public IActionResult Index()
         {
-            ViewData["productInCartCount"] = cartService.GetCurrentCart(userId).AllAmount;
+            ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
             return View(cartService.GetCurrentCart(userId));
         }
 
-        public IActionResult GetNewCart()
+        public IActionResult Finish()
         {
-            cartService.DeleteCart(userId);
+            cartService.SaveOrder(userId);
             return RedirectToAction("Index");
         }
 
