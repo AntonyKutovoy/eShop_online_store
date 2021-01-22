@@ -4,7 +4,7 @@
 <div class="container">
     <div class="d-flex justify-content-center">
         <form asp-controller="Home" asp-action="Search" class="input-group col-8 py-5">
-            <input type="text" name="SearchProduct" class="form-control" placeholder="Поиск" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <input type="text" name="id" class="form-control" placeholder="Поиск" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <div class="input-group-append">
                 <button class="btn btn-dark" href="" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 15 18">
@@ -43,7 +43,7 @@
                 </li>
                 @for (int i = 1; i <= (int)(ViewData["countPages"]); i++)
                 {
-                    <li class="page-item"><a href="/home/index?page=@i" class="page-link" style="color:black">@i</a></li>
+                    <li class="page-item"><a href="/home/@ViewData["methodForPagination"]?page=@i" class="page-link" style="color:black">@i</a></li>
                 }
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Next" style="color:black">
