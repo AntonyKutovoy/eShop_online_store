@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess;
+using Shop.Models;
 using Shop.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Shop.Controllers
@@ -31,6 +33,24 @@ namespace Shop.Controllers
             ViewData["countPages"] = countPages;
             ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
             return View(productsOnCurrentPage);
+        }
+
+        public IActionResult Search(string searchproduct)
+        {
+            var products = productService.GetAllProducts();
+            var searchProducts = new List<ProductViewModel>();
+            if (!String.IsNullOrEmpty(searchproduct))
+            {
+                foreach (var searchProduct in products)
+                {
+                    if (searchProduct.Name.Contains(searchproduct))
+                    {
+                        searchProducts.Add(searchProduct);
+                        ViewData["test"] = searchProducts.Count();//переменная для проверки (удалить)
+                    }
+                }
+            }
+            return RedirectToAction("Index");
         }
     }
 }
