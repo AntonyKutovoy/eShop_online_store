@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,9 +19,11 @@ namespace Shop
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ShopContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSingleton<CartService>();
-            services.AddSingleton<ProductService>();
-            services.AddSingleton<IProductRepository, ProductInMemoryRepository>();
+            services.AddTransient<ProductService>();
+            services.AddTransient<IProductRepository, ProductDbRepository>();
             services.AddSingleton<ICartRepository, CartInMemoryRepository>();
             services.AddControllersWithViews();
 
