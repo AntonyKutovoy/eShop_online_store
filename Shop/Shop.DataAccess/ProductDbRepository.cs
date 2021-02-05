@@ -20,9 +20,7 @@ namespace Shop.DataAccess
 
         public List<Product> GetAll()
         {
-            IQueryable<Product> productIQuer = shopContext.Products;
-            var products = productIQuer.ToList();
-            return products;
+            return shopContext.Products.ToList();
         }
     }
 }
