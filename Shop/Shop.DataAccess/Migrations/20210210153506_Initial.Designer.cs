@@ -10,7 +10,7 @@ using Shop.DataAccess;
 namespace Shop.DataAccess.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20210204203526_Initial")]
+    [Migration("20210210153506_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

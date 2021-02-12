@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shop.DataAccess;
+using System.Threading.Tasks;
 
 namespace Shop
 {
     public class Program
     {
-        public static void Main(string[] args)
+
+        public async static Task Main(string[] args)
         {
             var host = CreateHostBuilder(args)
                         .Build();
@@ -17,10 +20,14 @@ namespace Shop
                 var services = scope.ServiceProvider;
                 var shopContext = services.GetRequiredService<ShopContext>();
                 ShopContextSeeder.Seed(shopContext);
+
+                var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                await AppIdentityDbContextSeeder.SeedAsync(userManager);
             }
 
             host.Run();
         }
+
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args).

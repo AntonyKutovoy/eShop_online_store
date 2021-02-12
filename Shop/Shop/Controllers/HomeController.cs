@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Models;
 using Shop.Services;
 using System;
@@ -7,12 +8,14 @@ using System.Linq;
 
 namespace Shop.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private const int productsCountPerPage = 9;
         private readonly ProductService productService;
         private readonly CartService cartService;
         private Guid userId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e");//временная переменная для проверок
+
         public HomeController(ProductService productService, CartService cartService)
         {
             this.productService = productService;
