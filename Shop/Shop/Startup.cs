@@ -39,7 +39,6 @@ namespace Shop
             services.AddControllersWithViews();
         }
 
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -54,8 +53,9 @@ namespace Shop
             app.UseCookiePolicy();
             
             app.UseAuthentication();    // подключение аутентификации
+            app.UseAuthorization();
 
-            
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -75,6 +75,7 @@ namespace Shop
                 if (existingUserManager == null)
                 {
                     services.AddIdentity<ApplicationUser, IdentityRole>()
+                        //.AddDefaultUI()
                         .AddEntityFrameworkStores<AppIdentityDbContext>()
                                         .AddDefaultTokenProviders();
                 }

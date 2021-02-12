@@ -22,7 +22,8 @@ namespace Shop
                 ShopContextSeeder.Seed(shopContext);
 
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                await AppIdentityDbContextSeeder.SeedAsync(userManager);
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                await AppIdentityDbContextSeeder.SeedAsync(userManager, roleManager);
             }
 
             host.Run();
