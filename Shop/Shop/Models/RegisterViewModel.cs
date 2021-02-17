@@ -12,7 +12,10 @@ namespace Shop.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
+        [Required]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Подтвердить пароль")]
+        public string PasswordConfirm { get; set; }
     }
 }

@@ -1,11 +1,12 @@
-﻿@model Shop.Models.LoginViewModel
+﻿@model Shop.Models.RegisterViewModel
 <!DOCTYPE html>
+
 
 <body class="text-center">
     <div class="album py-5">
-        <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+        <form method="post" asp-controller="Account" asp-action="Register">
             <div asp-validation-summary="ModelOnly"></div>
-            <h1 class="h3 mb-3 font-weight-normal">Логин</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
             <div class="container col-md-4 align-self-center">
                 <label for="inputEmail" class="sr-only"></label>
                 <input asp-for="Email" class="form-control" placeholder="Логин" />
@@ -15,13 +16,13 @@
                 <input asp-for="Password" class="form-control" placeholder="Пароль" />
                 <span asp-validation-for="Password"></span>
                 <div class="album py-1"></div>
+                <label for="confimPassword" class="sr-only"></label>
+                <input asp-for="PasswordConfirm" class="form-control" placeholder="Подтвердите пароль" />
+                <span asp-validation-for="PasswordConfirm"></span>
+                <div class="album py-3"></div>
             </div>
-            <div class="checkbox mb-3">
-                <label asp-for="RememberMe">
-                    <input asp-for="RememberMe" type="checkbox" /> Запомнить меня?
-                </label>
-            </div>
-            <button class="btn btn-dark col-md-3" type="submit">Войти</button>
+            <button class="btn btn-dark col-md-3" type="submit">Зарегистрироваться</button>
         </form>
     </div>
 </body>
+
