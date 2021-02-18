@@ -9,17 +9,15 @@ namespace Shop.Controllers
 {
     public class AccountController : Controller
     {
-        //private readonly CartService cartService;
-        //private readonly ProductService productService;
+        private readonly CartService cartService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
         private Guid userId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e");//временная переменная для проверок
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, CartService cartService)
         {
-            //this.cartService = cartService;
-            //this.productService = productService;
+            this.cartService = cartService;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -27,6 +25,7 @@ namespace Shop.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
+            ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
@@ -34,6 +33,7 @@ namespace Shop.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel model)
         {
+            ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
             if (ModelState.IsValid)
             {
                 var result = _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false).Result;
@@ -75,8 +75,7 @@ namespace Shop.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            //ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
-            //return View(cartService.GetCurrentCart(userId));
+            ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
             return View();
         }
         
@@ -84,7 +83,7 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
-            //ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
+            ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
             if (ModelState.IsValid)
             {
                 ApplicationUser aplicationUser = new ApplicationUser { Email = model.Email, UserName = model.Email };

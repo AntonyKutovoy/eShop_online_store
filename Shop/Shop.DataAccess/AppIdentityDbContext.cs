@@ -8,8 +8,7 @@ namespace Shop.DataAccess
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options)
             : base(options)
         {
-            // нужно для первоначальной инициализации БД
-            Database.EnsureCreated();
+            Database.Migrate();
         }
     }
 }
