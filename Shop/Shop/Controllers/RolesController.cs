@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Shop.DataAccess;
 using Shop.Models;
 using Microsoft.AspNetCore.Authorization;
+using Shop.Extensions;
 
 namespace CustomIdentityApp.Controllers
 {
@@ -34,13 +35,10 @@ namespace CustomIdentityApp.Controllers
                 }
                 else
                 {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                    result.AddErrorsTo(ModelState);
                 }
             }
-            return View(name);
+            return View();
         }
 
         [HttpPost]
@@ -50,6 +48,10 @@ namespace CustomIdentityApp.Controllers
             if (role != null)
             {
                 var result = _roleManager.DeleteAsync(role).Result;
+                if (!result.Succeeded)
+                {
+                    result.AddErrorsTo(ModelState);
+                }
             }
             return RedirectToAction("Index");
         }
@@ -86,17 +88,23 @@ namespace CustomIdentityApp.Controllers
             {
                 // получем список ролей пользователя
                 var userRoles = _userManager.GetRolesAsync(user).Result;
-                // получаем все роли
-                var allRoles = _roleManager.Roles.ToList();
+
                 // получаем список ролей, которые были добавлены
                 var addedRoles = roles.Except(userRoles);
                 // получаем роли, которые были удалены
                 var removedRoles = userRoles.Except(roles);
 
-                _userManager.AddToRolesAsync(user, addedRoles);
-
-                _userManager.RemoveFromRolesAsync(user, removedRoles);
-
+                var result = _userManager.AddToRolesAsync(user, addedRoles).Result;
+                if (!result.Succeeded)
+                {
+                    result.AddErrorsTo(ModelState);
+                    return RedirectToAction("UserList");
+                }
+                result = _userManager.RemoveFromRolesAsync(user, removedRoles).Result;
+                if (!result.Succeeded)
+                {
+                    result.AddErrorsTo(ModelState);
+                }
                 return RedirectToAction("UserList");
             }
 

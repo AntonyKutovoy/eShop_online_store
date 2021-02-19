@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Shop.DataAccess;
 using Shop.Models;
 using Microsoft.AspNetCore.Authorization;
+using Shop.Extensions;
 
 namespace CustomIdentityApp.Controllers
 {
@@ -33,10 +34,7 @@ namespace CustomIdentityApp.Controllers
                 }
                 else
                 {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                    result.AddErrorsTo(ModelState);
                 }
             }
             return View(model);
@@ -71,10 +69,7 @@ namespace CustomIdentityApp.Controllers
                     }
                     else
                     {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(string.Empty, error.Description);
-                        }
+                        result.AddErrorsTo(ModelState);
                     }
                 }
             }
@@ -88,13 +83,17 @@ namespace CustomIdentityApp.Controllers
             if (user != null)
             {
                 var result = _userManager.DeleteAsync(user).Result;
+                if (!result.Succeeded)
+                {
+                    result.AddErrorsTo(ModelState);
+                }
             }
             return RedirectToAction("Index");
         }
 
         public IActionResult ChangePassword(string id)
         {
-            var user =  _userManager.FindByIdAsync(id).Result;
+            var user = _userManager.FindByIdAsync(id).Result;
             if (user == null)
             {
                 return NotFound();
@@ -116,8 +115,7 @@ namespace CustomIdentityApp.Controllers
                     var _passwordHasher =
                         HttpContext.RequestServices.GetService(typeof(IPasswordHasher<ApplicationUser>)) as IPasswordHasher<ApplicationUser>;
 
-                    var result =
-                        _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword).Result;
+                    var result = _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword).Result;
                     if (result.Succeeded)
                     {
                         user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
@@ -126,10 +124,7 @@ namespace CustomIdentityApp.Controllers
                     }
                     else
                     {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(string.Empty, error.Description);
-                        }
+                        result.AddErrorsTo(ModelState);
                     }
                 }
                 else
