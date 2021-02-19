@@ -86,11 +86,11 @@ namespace Shop.Controllers
             ViewData["cartProductsCount"] = cartService.GetCurrentCart(userId).AllAmount;
             if (ModelState.IsValid)
             {
-                ApplicationUser aplicationUser = new ApplicationUser { Email = model.Email, UserName = model.Email };
-                var result = _userManager.CreateAsync(aplicationUser, model.Password).Result;
+                var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
+                var result = _userManager.CreateAsync(user, model.Password).Result;
                 if (result.Succeeded)
                 {
-                    _signInManager.SignInAsync(aplicationUser, false);
+                    _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else

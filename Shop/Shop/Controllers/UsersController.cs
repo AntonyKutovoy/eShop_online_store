@@ -87,9 +87,57 @@ namespace CustomIdentityApp.Controllers
             var user = _userManager.FindByIdAsync(id).Result;
             if (user != null)
             {
-                IdentityResult result = _userManager.DeleteAsync(user).Result;
+                var result = _userManager.DeleteAsync(user).Result;
             }
             return RedirectToAction("Index");
+        }
+
+        public IActionResult ChangePassword(string id)
+        {
+            var user =  _userManager.FindByIdAsync(id).Result;
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _userManager.FindByIdAsync(model.Id).Result;
+                if (user != null)
+                {
+                    var _passwordValidator =
+                        HttpContext.RequestServices.GetService(typeof(IPasswordValidator<ApplicationUser>)) as IPasswordValidator<ApplicationUser>;
+                    var _passwordHasher =
+                        HttpContext.RequestServices.GetService(typeof(IPasswordHasher<ApplicationUser>)) as IPasswordHasher<ApplicationUser>;
+
+                    var result =
+                        _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword).Result;
+                    if (result.Succeeded)
+                    {
+                        user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
+                        _userManager.UpdateAsync(user);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Пользователь не найден");
+                }
+            }
+            return View(model);
         }
     }
 }
