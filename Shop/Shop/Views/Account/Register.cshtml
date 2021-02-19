@@ -1,11 +1,10 @@
 ﻿@model Shop.Models.RegisterViewModel
 <!DOCTYPE html>
 
-
+<div asp-validation-summary="All" class="text-danger"></div>
 <body class="text-center">
     <div class="album py-5">
         <form method="post" asp-controller="Account" asp-action="Register">
-            <div asp-validation-summary="ModelOnly"></div>
             <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
             <div class="container col-md-4 align-self-center">
                 <label for="inputEmail" class="sr-only"></label>

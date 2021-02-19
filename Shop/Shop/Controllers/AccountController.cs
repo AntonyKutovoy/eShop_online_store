@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess;
+using Shop.Extensions;
 using Shop.Models;
 using Shop.Services;
 using System;
@@ -95,13 +96,11 @@ namespace Shop.Controllers
                 }
                 else
                 {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                    result.AddErrorsTo(ModelState);
+                    return View();
                 }
             }
-            return RedirectToAction("Register");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
