@@ -5,10 +5,10 @@ namespace Shop.DataAccess
 {
     public interface ICartRepository
     {
-        Cart TryGetByUserId(Guid userId);
-        Cart Create(Guid userId, Product product);
+        Cart TryGetByUserId(string userId);
+        Cart Create(string userId, Product product);
         Cart AddProduct(Guid Guid, Product product);
         Cart Update(Cart existingCart);
-        void SaveForOrderPreparation(Guid userId);
+        void SaveForOrderPreparation(string userId);
     }
 }

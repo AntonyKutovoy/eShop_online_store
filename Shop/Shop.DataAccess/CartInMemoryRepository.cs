@@ -7,8 +7,8 @@ namespace Shop.DataAccess
 {
     public class CartInMemoryRepository : ICartRepository
     {
-        private List<Cart> carts = new List<Cart>();
-        private List<Cart> cartsForOrderPreparation = new List<Cart>();
+        private readonly List<Cart> carts = new List<Cart>();
+        private readonly List<Cart> cartsForOrderPreparation = new List<Cart>();
         public Cart AddProduct(Guid id, Product product)
         {
             var cart = carts.FirstOrDefault(x => x.Id == id);
@@ -30,7 +30,7 @@ namespace Shop.DataAccess
             return cart;
         }
 
-        public Cart Create(Guid userId, Product product)
+        public Cart Create(string userId, Product product)
         {
             var cartId = Guid.NewGuid();
             var cartItem = new CartItem
@@ -50,13 +50,13 @@ namespace Shop.DataAccess
             return cart;
         }
 
-        public void SaveForOrderPreparation(Guid userId)
+        public void SaveForOrderPreparation(string userId)
         {
             cartsForOrderPreparation.Add(TryGetByUserId(userId));
             carts.Remove(TryGetByUserId(userId));
         }
 
-        public Cart TryGetByUserId(Guid userId)
+        public Cart TryGetByUserId(string userId)
         {
             var cart = carts.FirstOrDefault(x => x.UserId == userId);
             return cart;

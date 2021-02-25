@@ -16,7 +16,7 @@ namespace Shop.Services
             this.cartRepository = cartRepository;
         }
 
-        public CartViewModel AddProductToCart(ProductViewModel productViewModel, Guid userId)
+        public CartViewModel AddProductToCart(ProductViewModel productViewModel, string userId)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             var product = productViewModel.ToProduct();
@@ -39,7 +39,7 @@ namespace Shop.Services
             return cartViewModel;
         }
 
-        public CartViewModel GetCurrentCart(Guid userId)
+        public CartViewModel GetCurrentCart(string userId)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             if (existingCart != null)
@@ -57,7 +57,7 @@ namespace Shop.Services
             };
         }
 
-        public CartViewModel Delete(Guid userId, Guid cartItemId)
+        public CartViewModel Delete(string userId, Guid cartItemId)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             if (existingCart != null)
@@ -68,7 +68,7 @@ namespace Shop.Services
             return GetCurrentCart(userId);
         }
 
-        public void SaveOrder(Guid userId)
+        public void SaveOrder(string userId)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             if (existingCart != null)
@@ -77,7 +77,7 @@ namespace Shop.Services
             }
         }
 
-        public CartViewModel UpdateAmount(Guid userId, Guid cartItemId, int amount)
+        public CartViewModel UpdateAmount(string userId, Guid cartItemId, int amount)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             if (existingCart != null)
