@@ -22,7 +22,6 @@ namespace Shop.Controllers
         public IActionResult Index(Guid id)
         {
             var product = productService.GetProduct(id);
-            ViewData["cartProductsCount"] = cartService.GetCurrentCart(_userManager.GetUserId(User)).AllAmount;
             return View(product);
         }
     }

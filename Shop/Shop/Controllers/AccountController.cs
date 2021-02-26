@@ -4,7 +4,6 @@ using Shop.DataAccess;
 using Shop.Extensions;
 using Shop.Models;
 using Shop.Services;
-using System;
 
 namespace Shop.Controllers
 {
@@ -24,7 +23,6 @@ namespace Shop.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            ViewData["cartProductsCount"] = cartService.GetCurrentCart(_userManager.GetUserId(User)).AllAmount;
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
@@ -32,7 +30,6 @@ namespace Shop.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel model)
         {
-            ViewData["cartProductsCount"] = cartService.GetCurrentCart(_userManager.GetUserId(User)).AllAmount;
             if (ModelState.IsValid)
             {
                 var result = _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false).Result;
@@ -63,7 +60,6 @@ namespace Shop.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            ViewData["cartProductsCount"] = cartService.GetCurrentCart(_userManager.GetUserId(User)).AllAmount;
             return View();
         }
         
@@ -71,7 +67,6 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
-            ViewData["cartProductsCount"] = cartService.GetCurrentCart(_userManager.GetUserId(User)).AllAmount;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
