@@ -4,7 +4,7 @@
             <a href="/home/index?page=1" class="navbar-brand d-flex align-items-center">
                 <strong>Логотип</strong>
             </a>
-            <form method="post" class="form-inline my-2 my-lg-0">
+            <form method="get" class="form-inline my-2 my-lg-0">
                 @if (User.IsInRole("Admin"))
                 {
                     <button class="btn btn-dark" type="submit" asp-controller="Users" asp-action="Index">
