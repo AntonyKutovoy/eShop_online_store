@@ -1,27 +1,26 @@
 ﻿@model Shop.Models.RegisterViewModel
 <!DOCTYPE html>
 
-<div asp-validation-summary="All" class="text-danger"></div>
 <body class="text-center">
-    <div class="album py-5">
-        <form method="post" asp-controller="Account" asp-action="Register">
-            <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
-            <div class="container col-md-4 align-self-center">
-                <label for="inputEmail" class="sr-only"></label>
-                <input asp-for="Email" class="form-control" placeholder="Логин" />
-                <span asp-validation-for="Email"></span>
-                <div class="album py-1"></div>
-                <label for="inputPassword" class="sr-only"></label>
-                <input asp-for="Password" class="form-control" placeholder="Пароль" />
-                <span asp-validation-for="Password"></span>
-                <div class="album py-1"></div>
-                <label for="confimPassword" class="sr-only"></label>
-                <input asp-for="PasswordConfirm" class="form-control" placeholder="Подтвердите пароль" />
-                <span asp-validation-for="PasswordConfirm"></span>
-                <div class="album py-3"></div>
-            </div>
-            <button class="btn btn-dark col-md-3" type="submit">Зарегистрироваться</button>
-        </form>
-    </div>
-</body>
-
+        <div class="album py-5">
+            <form method="post" asp-controller="Account" asp-action="Register" >
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+                <div class="container col-md-4 align-self-center">
+                    <label asp-for="Email" class="sr-only"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Логин" />
+                    <span asp-validation-for="Email" class="sr-only"></span>
+                    <div class="album py-1"></div>
+                    <label asp-for="Password" class="sr-only"></label>
+                    <input asp-for="Password" class="form-control" placeholder="Пароль" />
+                    <span asp-validation-for="Password" class="sr-only"></span>
+                    <div class="album py-1"></div>
+                    <label asp-for="PasswordConfirm" class="sr-only"></label>
+                    <input asp-for="PasswordConfirm" class="form-control" placeholder="Подтвердите пароль" />
+                    <span asp-validation-for="PasswordConfirm" class="sr-only"></span>
+                    <div class="album py-3"></div>
+                </div>
+                <button class="btn btn-dark col-md-3" type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </body>

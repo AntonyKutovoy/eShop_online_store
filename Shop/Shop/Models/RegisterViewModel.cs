@@ -4,15 +4,15 @@ namespace Shop.Models
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required (ErrorMessage = "Поле email не заполнено")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле пароль не заполнено")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле подтвердите пароль не заполнено")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         [Display(Name = "Подтвердить пароль")]

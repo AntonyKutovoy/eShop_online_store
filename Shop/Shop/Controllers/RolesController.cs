@@ -6,6 +6,7 @@ using Shop.DataAccess;
 using Shop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Shop.Extensions;
+using Shop.Services;
 
 namespace CustomIdentityApp.Controllers
 {
@@ -14,11 +15,15 @@ namespace CustomIdentityApp.Controllers
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        private readonly CartService cartService;
+
+        public RolesController(CartService cartService, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            this.cartService = cartService;
         }
+
         public IActionResult Index() => View(_roleManager.Roles.ToList());
 
         public IActionResult Create() => View();

@@ -53,6 +53,10 @@ namespace Shop.Controllers
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
                 }
             }
+            else
+            {
+                ModelState.AddModelError("", "Поля должны быть заполнены");
+            }
             return View(model);
         }
 
@@ -80,10 +84,9 @@ namespace Shop.Controllers
                 else
                 {
                     result.AddErrorsTo(ModelState);
-                    return View();
                 }
             }
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         [HttpPost]

@@ -5,6 +5,7 @@ using Shop.DataAccess;
 using Shop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Shop.Extensions;
+using Shop.Services;
 
 namespace CustomIdentityApp.Controllers
 {
@@ -12,9 +13,12 @@ namespace CustomIdentityApp.Controllers
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        public UsersController(UserManager<ApplicationUser> userManager)
+        private readonly CartService cartService;
+
+        public UsersController(CartService cartService, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
+            this.cartService = cartService;
         }
 
         public IActionResult Index() => View(_userManager.Users.ToList());

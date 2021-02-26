@@ -1,19 +1,19 @@
 ﻿@model Shop.Models.LoginViewModel
 <!DOCTYPE html>
 
-<div asp-validation-summary="All" class="text-danger"></div>
 <body class="text-center">
     <div class="album py-5">
         <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
-            <h1 class="h3 mb-3 font-weight-normal">Логин</h1>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h1 class="h3 mb-3 font-weight-normal">Вход</h1>
             <div class="container col-md-4 align-self-center">
-                <label for="inputEmail" class="sr-only"></label>
+                <label asp-for="Email" class="sr-only"></label>
                 <input asp-for="Email" class="form-control" placeholder="Логин" />
-                <span asp-validation-for="Email"></span>
+                <span asp-validation-for="Email" class="sr-only"></span>
                 <div class="album py-1"></div>
-                <label for="inputPassword" class="sr-only"></label>
+                <label asp-for="Password" class="sr-only"></label>
                 <input asp-for="Password" class="form-control" placeholder="Пароль" />
-                <span asp-validation-for="Password"></span>
+                <span asp-validation-for="Password" class="sr-only"></span>
                 <div class="album py-1"></div>
             </div>
             <div class="checkbox mb-3">
@@ -23,9 +23,7 @@
             </div>
             <button class="btn btn-dark col-md-3" type="submit">Войти</button>
             <div class="album py-1"></div>
-            <p>
-                <a style="color:black" asp-action="Register">Регистрация нового пользвателя</a>
-            </p>
+            <a style="color:black" asp-action="Register">Регистрация нового пользвателя</a>
         </form>
     </div>
 </body>
