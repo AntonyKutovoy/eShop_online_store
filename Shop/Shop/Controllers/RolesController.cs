@@ -15,13 +15,11 @@ namespace CustomIdentityApp.Controllers
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly CartService cartService;
 
-        public RolesController(CartService cartService, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
-            this.cartService = cartService;
         }
 
         public IActionResult Index() => View(_roleManager.Roles.ToList());

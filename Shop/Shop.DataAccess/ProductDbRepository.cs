@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Shop.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Shop.DataAccess
 
         public List<Product> GetAll()
         {
-            return shopContext.Products.ToList();
+            return shopContext.Products.AsNoTracking().ToList();
         }
     }
 }

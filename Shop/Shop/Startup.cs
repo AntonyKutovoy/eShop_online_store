@@ -23,7 +23,7 @@ namespace Shop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ShopContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.EnableSensitiveDataLogging().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -32,10 +32,10 @@ namespace Shop
 
             CreateIdentityIfNotCreated(services);
 
-            services.AddSingleton<CartService>();
+            services.AddTransient<CartService>();
             services.AddTransient<ProductService>();
             services.AddTransient<IProductRepository, ProductDbRepository>();
-            services.AddSingleton<ICartRepository, CartInMemoryRepository>();
+            services.AddTransient<ICartRepository, CartDbRerpository>();
             services.AddControllersWithViews();
         }
 

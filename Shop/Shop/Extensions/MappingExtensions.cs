@@ -11,7 +11,7 @@ namespace Shop.Models
             return new CartViewModel
             {
                 Id = cart.Id,
-                Items = cart.Items.ToCartItemsViewModel()
+                Items = cart.CartItems.ToCartItemsViewModel()
             };
         }
 

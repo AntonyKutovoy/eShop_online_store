@@ -44,10 +44,11 @@ namespace Shop.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(Guid itemId)
+        public IActionResult Delete(Guid CartItemid)
         {
-            cartService.Delete(_userManager.GetUserId(User), itemId);
+            cartService.Delete(_userManager.GetUserId(User), CartItemid);
             return RedirectToAction("Index");
         }
+
     }
 }

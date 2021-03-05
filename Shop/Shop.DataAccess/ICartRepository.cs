@@ -9,6 +9,7 @@ namespace Shop.DataAccess
         Cart Create(string userId, Product product);
         Cart AddProduct(Guid Guid, Product product);
         Cart Update(Cart existingCart);
+        Cart Delete(Cart existingCart, Product product);
         void SaveForOrderPreparation(string userId);
     }
 }

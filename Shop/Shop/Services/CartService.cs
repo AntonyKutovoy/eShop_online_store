@@ -34,7 +34,7 @@ namespace Shop.Services
             var cartViewModel = new CartViewModel()
             {
                 Id = cart.Id,
-                Items = cart.Items.ToCartItemsViewModel()
+                Items = cart.CartItems.ToCartItemsViewModel()
             };
             return cartViewModel;
         }
@@ -47,7 +47,7 @@ namespace Shop.Services
                 return new CartViewModel()
                 {
                     Id = existingCart.Id,
-                    Items = existingCart.Items.ToCartItemsViewModel()
+                    Items = existingCart.CartItems.ToCartItemsViewModel()
                 };
             }
 
@@ -57,17 +57,28 @@ namespace Shop.Services
             };
         }
 
-        public CartViewModel Delete(string userId, Guid cartItemId)
+        public CartViewModel Delete(string userId, Guid cartItemId)//проверить нужно ли возвращать корзину
+        {
+            var existingCart = cartRepository.TryGetByUserId(userId);
+            var cartItem = existingCart.CartItems.FirstOrDefault(x => x.Id == cartItemId);
+            existingCart = cartRepository.Delete(existingCart, cartItem.Product);
+            return existingCart.ToCartViewModel();
+        }
+        public CartViewModel UpdateAmount(string userId, Guid cartItemId, int amount)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             if (existingCart != null)
             {
-                existingCart.Items.RemoveAll(x => x.Id == cartItemId);
+                var cartItem = existingCart.CartItems.FirstOrDefault(x => x.Id == cartItemId);
+                cartItem.Amount = amount;
             }
-
-            return GetCurrentCart(userId);
+            existingCart = cartRepository.Update(existingCart);
+            return new CartViewModel()
+            {
+                Id = existingCart.Id,
+                Items = existingCart.CartItems.ToCartItemsViewModel()
+            };
         }
-
         public void SaveOrder(string userId)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
@@ -75,22 +86,6 @@ namespace Shop.Services
             {
                 cartRepository.SaveForOrderPreparation(userId);
             }
-        }
-
-        public CartViewModel UpdateAmount(string userId, Guid cartItemId, int amount)
-        {
-            var existingCart = cartRepository.TryGetByUserId(userId);
-            if (existingCart != null)
-            {
-                var cartItem = existingCart.Items.FirstOrDefault(x => x.Id == cartItemId);
-                cartItem.Amount = amount;
-            }
-            existingCart = cartRepository.Update(existingCart);
-            return new CartViewModel()
-            {
-                Id = existingCart.Id,
-                Items = existingCart.Items.ToCartItemsViewModel()
-            };
         }
     }
 }

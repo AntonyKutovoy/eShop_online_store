@@ -13,12 +13,10 @@ namespace CustomIdentityApp.Controllers
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly CartService cartService;
 
-        public UsersController(CartService cartService, UserManager<ApplicationUser> userManager)
+        public UsersController( UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            this.cartService = cartService;
         }
 
         public IActionResult Index() => View(_userManager.Users.ToList());

@@ -9,14 +9,10 @@ namespace Shop.Controllers
     public class ProductController : Controller
     {
         private readonly ProductService productService;
-        private readonly CartService cartService;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProductController(ProductService productService, CartService cartService, UserManager<ApplicationUser> userManager)
+        public ProductController(ProductService productService)
         {
             this.productService = productService;
-            this.cartService = cartService;
-            _userManager = userManager;
         }
 
         public IActionResult Index(Guid id)
