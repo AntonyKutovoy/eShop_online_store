@@ -44,9 +44,9 @@ namespace Shop.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(Guid CartItemid)
+        public IActionResult Delete(Guid itemId)
         {
-            cartService.Delete(_userManager.GetUserId(User), CartItemid);
+            cartService.Delete(_userManager.GetUserId(User), itemId);
             return RedirectToAction("Index");
         }
 
