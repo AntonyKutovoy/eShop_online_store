@@ -57,14 +57,13 @@ namespace Shop.Services
             };
         }
 
-        public CartViewModel Delete(string userId, Guid cartItemId)//проверить нужно ли возвращать корзину
+        public void Delete(string userId, Guid cartItemId)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             var cartItem = existingCart.CartItems.FirstOrDefault(x => x.Id == cartItemId);
-            existingCart = cartRepository.Delete(existingCart, cartItem.Product);
-            return existingCart.ToCartViewModel();
+            cartRepository.Delete(existingCart, cartItem.Product);
         }
-        public CartViewModel UpdateAmount(string userId, Guid cartItemId, int amount)
+        public void UpdateAmount(string userId, Guid cartItemId, int amount)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             if (existingCart != null)
@@ -72,12 +71,7 @@ namespace Shop.Services
                 var cartItem = existingCart.CartItems.FirstOrDefault(x => x.Id == cartItemId);
                 cartItem.Amount = amount;
             }
-            existingCart = cartRepository.Update(existingCart);
-            return new CartViewModel()
-            {
-                Id = existingCart.Id,
-                Items = existingCart.CartItems.ToCartItemsViewModel()
-            };
+            cartRepository.Update(existingCart);
         }
         public void SaveOrder(string userId)
         {

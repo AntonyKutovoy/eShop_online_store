@@ -52,30 +52,19 @@ namespace Shop.DataAccess
             return cart;
         }
 
-        public Cart Update(Cart existingCart)//метод работает
+        public void Update(Cart existingCart)//метод работает
         {
             var cart = shopContext.Carts.FirstOrDefault(x => x.Id == existingCart.Id);
             cart = existingCart;
             shopContext.SaveChanges();
-            return cart;
         }
 
-        public Cart Delete(Cart existingCart, Product product)//протестировать
+        public void Delete(Cart existingCart, Product product)//метод работает
         {
             var cart = shopContext.Carts.FirstOrDefault(x => x.Id == existingCart.Id);
             var cartItem = cart.CartItems.FirstOrDefault(x => x.ProductId == product.Id);
             product.CartItems.Remove(cartItem);
             shopContext.SaveChanges();
-            return cart;
         }
-        //// удаление продукта у корзины
-        //Product product = shopContext.Products.Include(s => s.CartItems).FirstOrDefault(s => s.Name == "NVIDIA GeForce RTX 3070");
-        //Cart Cart = shopContext.Carts.FirstOrDefault(c => c.UserId == userId);
-        //if (product != null && cart != null)
-        //{
-        //    var cartItem = product.CartItems.FirstOrDefault(sc => sc.CartId == cart.Id);
-        //    product.CartItems.Remove(cartItem);
-        //    shopContext.SaveChanges();
-        //}
     }
 }
