@@ -39,7 +39,7 @@ namespace Shop.DataAccess
             return cart;
         }
 
-        public void SaveForOrderPreparation(string userId)
+        public void SaveForOrderPreparation(string userId)//сделать вместо CartsForOrderPreparation Order
         {
             shopContext.CartsForOrderPreparation.Add(TryGetByUserId(userId));
             shopContext.Carts.Remove(TryGetByUserId(userId));

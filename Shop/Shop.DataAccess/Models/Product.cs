@@ -16,5 +16,6 @@ namespace Shop.DataAccess.Models
         {
             CartItems = new List<CartItem>();
         }
+        public Image Image { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Shop.DataAccess;
+﻿using Microsoft.AspNetCore.Http;
+using Shop.DataAccess;
 using Shop.DataAccess.Models;
 using Shop.Models;
 using System;
@@ -33,6 +34,10 @@ namespace Shop.Services
             var product = productRepository.Get(id);
             var productViewModel = product.ToProductViewModel();
             return productViewModel;
+        }
+        public void Create(ProductViewModel productViewModel)
+        {
+            productRepository.Create(productViewModel.ToProduct());
         }
     }
 }

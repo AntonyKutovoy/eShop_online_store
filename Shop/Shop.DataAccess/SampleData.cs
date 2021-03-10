@@ -1,5 +1,4 @@
 ﻿using Shop.DataAccess.Models;
-using System;
 using System.Collections.Generic;
 
 namespace Shop.DataAccess
@@ -35,9 +34,9 @@ namespace Shop.DataAccess
                     },
                     new Product
                     {
-                        Name = "NVIDIA GeForce RTX 3050",
+                        Name = "NVIDIA GeForce RTX 3060",
                         Price = 45000,
-                        Description = "Здесь будет описание RTX 3050."
+                        Description = "Здесь будет описание RTX 3060."
                     }
             };
 

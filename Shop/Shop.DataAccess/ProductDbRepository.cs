@@ -23,5 +23,11 @@ namespace Shop.DataAccess
         {
             return shopContext.Products.AsNoTracking().ToList();
         }
+
+        public void Create (Product product)
+        {
+            shopContext.Products.Add(product);
+            shopContext.SaveChanges();
+        }
     }
 }

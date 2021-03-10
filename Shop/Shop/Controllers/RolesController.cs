@@ -6,7 +6,6 @@ using Shop.DataAccess;
 using Shop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Shop.Extensions;
-using Shop.Services;
 
 namespace CustomIdentityApp.Controllers
 {

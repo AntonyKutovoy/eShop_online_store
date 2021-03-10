@@ -43,7 +43,8 @@ namespace Shop.Models
                 Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
-                Price = product.Price
+                Price = product.Price,
+                Image = product.Image
             };
         }
 
@@ -54,7 +55,8 @@ namespace Shop.Models
                 Id = productViewModel.Id,
                 Name = productViewModel.Name,
                 Description = productViewModel.Description,
-                Price = productViewModel.Price
+                Price = productViewModel.Price,
+                Image = productViewModel.Image
             };
         }
     }

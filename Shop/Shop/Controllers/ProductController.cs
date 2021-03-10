@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shop.DataAccess;
+using Shop.Models;
 using Shop.Services;
 using System;
 
@@ -19,6 +20,17 @@ namespace Shop.Controllers
         {
             var product = productService.GetProduct(id);
             return View(product);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Create() => View();
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult Create(ProductViewModel productViewModel)
+        {
+            productService.Create(productViewModel);
+            return View();
         }
     }
 }
