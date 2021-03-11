@@ -8,7 +8,6 @@ namespace Shop.DataAccess
         public DbSet<Product> Products { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Cart> CartsForOrderPreparation { get; set; }
-
         public ShopContext(DbContextOptions<ShopContext> options)
             : base(options)
         {

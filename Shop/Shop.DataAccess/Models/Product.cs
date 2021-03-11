@@ -12,10 +12,10 @@ namespace Shop.DataAccess.Models
         public decimal Price { get; set; }
         public string Description { get; set; }
         public List<CartItem> CartItems { get; set; }
+        public string ImagePath { get; set; }
         public Product()
         {
             CartItems = new List<CartItem>();
         }
-        public Image Image { get; set; }
     }
 }

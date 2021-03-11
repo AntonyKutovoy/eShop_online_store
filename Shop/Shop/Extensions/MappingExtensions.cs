@@ -44,7 +44,7 @@ namespace Shop.Models
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                Image = product.Image
+                ImagePath = product.ImagePath
             };
         }
 
@@ -56,7 +56,7 @@ namespace Shop.Models
                 Name = productViewModel.Name,
                 Description = productViewModel.Description,
                 Price = productViewModel.Price,
-                Image = productViewModel.Image
+                ImagePath = "/images/products/" + productViewModel.File.FileName
             };
         }
     }

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Shop.DataAccess;
 using Shop.DataAccess.Models;
 using Shop.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Shop.Services
@@ -11,10 +13,12 @@ namespace Shop.Services
     public class ProductService
     {
         private readonly IProductRepository productRepository;
+        IWebHostEnvironment appEnvironment;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IWebHostEnvironment appEnvironment)
         {
             this.productRepository = productRepository;
+            this.appEnvironment = appEnvironment;
         }
 
         public List<ProductViewModel> GetAllProducts()
@@ -29,7 +33,7 @@ namespace Shop.Services
             return productsViewModel;
         }
 
-        public ProductViewModel GetProduct (Guid id)
+        public ProductViewModel GetProduct(Guid id)
         {
             var product = productRepository.Get(id);
             var productViewModel = product.ToProductViewModel();
@@ -37,6 +41,11 @@ namespace Shop.Services
         }
         public void Create(ProductViewModel productViewModel)
         {
+            if (productViewModel.File != null)
+            {
+                string path = "/images/products/" + productViewModel.File.FileName;
+                productViewModel.File.CopyTo(new FileStream(appEnvironment.WebRootPath + path, FileMode.Create));
+            }
             productRepository.Create(productViewModel.ToProduct());
         }
     }
