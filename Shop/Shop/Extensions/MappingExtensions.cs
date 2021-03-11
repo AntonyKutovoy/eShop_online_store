@@ -50,13 +50,18 @@ namespace Shop.Models
 
         public static Product ToProduct(this ProductViewModel productViewModel)
         {
+            var path = productViewModel.ImagePath;
+            if (productViewModel.File != null)
+            {
+                path = "/images/products/" + productViewModel.File.FileName;
+            }
             return new Product()
             {
                 Id = productViewModel.Id,
                 Name = productViewModel.Name,
                 Description = productViewModel.Description,
                 Price = productViewModel.Price,
-                ImagePath = "/images/products/" + productViewModel.File.FileName
+                ImagePath = path
             };
         }
     }
