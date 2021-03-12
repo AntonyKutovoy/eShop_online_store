@@ -43,7 +43,11 @@
                                 @User.Identity.Name
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item">Личный кабинет</a>
+                                <a class="dropdown-item">
+                                    <form method="get" asp-controller="UserProfile" asp-action="Index">
+                                        <input type="submit" value="Личный кабинет" style="background:none;border:none;padding:0">
+                                    </form>
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item">
                                     <form method="post" asp-controller="Account" asp-action="Logout">

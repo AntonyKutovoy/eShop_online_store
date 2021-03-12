@@ -17,9 +17,11 @@
         <div class="row">
             @foreach (var product in Model)
             {
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="@Url.Content(product.ImagePath)" alt="Изображение товара" />
+                        <a href="/product/index/@product.Id">
+                            <img class="card-img-top" src="@Url.Content(product.ImagePath)" alt="Изображение товара" />
+                        </a>
                         <div class="card-body">
                             <a style="color:black" href="/product/index/@product.Id"><h5>@product.Name</h5></a>
                             <h5>@product.Price руб</h5>

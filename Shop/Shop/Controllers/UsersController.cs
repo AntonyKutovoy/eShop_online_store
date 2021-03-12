@@ -13,10 +13,12 @@ namespace CustomIdentityApp.Controllers
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public UsersController( UserManager<ApplicationUser> userManager)
+        public UsersController( UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index() => View(_userManager.Users.ToList());

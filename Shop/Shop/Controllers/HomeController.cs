@@ -10,7 +10,7 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
-        private const int productsCountPerPage = 9;
+        private const int productsCountPerPage = 12;
         private readonly ProductService productService;
 
         public HomeController(ProductService productService)
