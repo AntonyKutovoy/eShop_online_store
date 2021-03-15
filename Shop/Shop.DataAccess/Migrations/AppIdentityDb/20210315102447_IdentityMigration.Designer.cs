@@ -10,8 +10,8 @@ using Shop.DataAccess;
 namespace Shop.DataAccess.Migrations.AppIdentityDb
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20210211183648_Initial2")]
-    partial class Initial2
+    [Migration("20210315102447_IdentityMigration")]
+    partial class IdentityMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,6 +195,9 @@ namespace Shop.DataAccess.Migrations.AppIdentityDb
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
