@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess;
 using Shop.Extensions;
 using Shop.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shop.Controllers
@@ -84,16 +81,9 @@ namespace Shop.Controllers
                 var user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
-                    var _passwordValidator =
-                        HttpContext.RequestServices.GetService(typeof(IPasswordValidator<ApplicationUser>)) as IPasswordValidator<ApplicationUser>;
-                    var _passwordHasher =
-                        HttpContext.RequestServices.GetService(typeof(IPasswordHasher<ApplicationUser>)) as IPasswordHasher<ApplicationUser>;
-
-                    var result = await _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword);
+                    var result = await _userManager.ChangePasswordAsync(user, model.Password, model.NewPassword);
                     if (result.Succeeded)
                     {
-                        user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
-                        await _userManager.UpdateAsync(user);
                         return RedirectToAction("Index");
                     }
                     else

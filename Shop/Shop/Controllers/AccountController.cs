@@ -4,6 +4,7 @@ using Shop.DataAccess;
 using Shop.Extensions;
 using Shop.Models;
 using Shop.Services;
+using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
@@ -84,10 +85,9 @@ namespace Shop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            // удаляем аутентификационные куки
-            _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
     }
