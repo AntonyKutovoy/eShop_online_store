@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.DataAccess;
 
-namespace Shop.DataAccess.Migrations
+namespace Shop.DataAccess.Migrations.Shop.ShopDb
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20210315102400_DataMigration")]
-    partial class DataMigration
+    [Migration("20210316215738_InitialShopDbMigration")]
+    partial class InitialShopDbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

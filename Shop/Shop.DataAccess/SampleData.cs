@@ -14,7 +14,7 @@ namespace Shop.DataAccess
                 {
                     Name = "Test" + i,
                     Price = i * 10000,
-                    Description = "Test1" + i,
+                    Description = "Test" + i,
                     ImagePath = "/images/products/Test.png"
                 });
             }

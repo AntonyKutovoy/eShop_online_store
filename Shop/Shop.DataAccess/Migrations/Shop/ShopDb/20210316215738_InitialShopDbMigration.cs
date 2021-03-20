@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Shop.DataAccess.Migrations
+namespace Shop.DataAccess.Migrations.Shop.ShopDb
 {
-    public partial class DataMigration : Migration
+    public partial class InitialShopDbMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

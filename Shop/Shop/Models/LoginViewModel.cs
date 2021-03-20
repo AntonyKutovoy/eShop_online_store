@@ -2,7 +2,7 @@
 
 namespace Shop.Models
 {
-    public class LoginViewModel
+    public class LoginViewModel 
     {
         [Required]
         [EmailAddress]

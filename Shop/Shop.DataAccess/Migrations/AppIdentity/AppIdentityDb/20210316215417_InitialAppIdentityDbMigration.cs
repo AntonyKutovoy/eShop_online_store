@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Shop.DataAccess.Migrations.AppIdentityDb
+namespace Shop.DataAccess.Migrations.AppIdentity.AppIdentityDb
 {
-    public partial class IdentityMigration : Migration
+    public partial class InitialAppIdentityDbMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,6 +40,7 @@ namespace Shop.DataAccess.Migrations.AppIdentityDb
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
                     Surname = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

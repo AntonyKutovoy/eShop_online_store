@@ -6,6 +6,7 @@ using Shop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Shop.Extensions;
 using Shop.Services;
+using System.Threading.Tasks;
 
 namespace CustomIdentityApp.Controllers
 {
@@ -26,12 +27,12 @@ namespace CustomIdentityApp.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public IActionResult Create(CreateUserViewModel model)
+        public async Task<IActionResult> Create(UserViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
-                var result = _userManager.CreateAsync(user, model.Password).Result;
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -44,29 +45,29 @@ namespace CustomIdentityApp.Controllers
             return View(model);
         }
 
-        public IActionResult Edit(string id)
+        public async Task<IActionResult> Edit(string id)
         {
-            var user = _userManager.FindByIdAsync(id).Result;
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            var model = new EditUserViewModel { Id = user.Id, Email = user.Email };
+            var model = new UserViewModel { Id = user.Id, Email = user.Email };
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(EditUserViewModel model)
+        public async Task<IActionResult> Edit(UserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = _userManager.FindByIdAsync(model.Id).Result;
+                var user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
                     user.Email = model.Email;
                     user.UserName = model.Email;
 
-                    var result = _userManager.UpdateAsync(user).Result;
+                    var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index");
@@ -81,12 +82,12 @@ namespace CustomIdentityApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            var user = _userManager.FindByIdAsync(id).Result;
+            var user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {
-                var result = _userManager.DeleteAsync(user).Result;
+                var result = await _userManager.DeleteAsync(user);
                 if (!result.Succeeded)
                 {
                     result.AddErrorsTo(ModelState);
@@ -95,23 +96,23 @@ namespace CustomIdentityApp.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult ChangePassword(string id)
+        public async Task<IActionResult> ChangePassword(string id)
         {
-            var user = _userManager.FindByIdAsync(id).Result;
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            var model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
+            var model = new UserViewModel { Id = user.Id, Email = user.Email };
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(ChangePasswordViewModel model)
+        public async Task<IActionResult> ChangePassword(UserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = _userManager.FindByIdAsync(model.Id).Result;
+                var user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
                     var _passwordValidator =
@@ -119,11 +120,11 @@ namespace CustomIdentityApp.Controllers
                     var _passwordHasher =
                         HttpContext.RequestServices.GetService(typeof(IPasswordHasher<ApplicationUser>)) as IPasswordHasher<ApplicationUser>;
 
-                    var result = _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword).Result;
+                    var result = await _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword);
                     if (result.Succeeded)
                     {
                         user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
-                        _userManager.UpdateAsync(user);
+                        await _userManager.UpdateAsync(user);
                         return RedirectToAction("Index");
                     }
                     else
