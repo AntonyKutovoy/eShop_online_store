@@ -12,7 +12,7 @@ namespace Shop.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Поле подтвердите пароль не заполнено")]
+        [Required(ErrorMessage = "Поле подтвердить пароль не заполнено")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         [Display(Name = "Подтвердить пароль")]
