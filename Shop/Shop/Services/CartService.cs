@@ -57,12 +57,13 @@ namespace Shop.Services
             };
         }
 
-        public void Delete(string userId, Guid cartItemId)
+        public void DeleteItem(string userId, Guid cartItemId)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             var cartItem = existingCart.CartItems.FirstOrDefault(x => x.Id == cartItemId);
-            cartRepository.Delete(existingCart, cartItem.Product);
+            cartRepository.DeleteItem(existingCart, cartItem.Product);
         }
+
         public void UpdateAmount(string userId, Guid cartItemId, int amount)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
@@ -73,12 +74,13 @@ namespace Shop.Services
             }
             cartRepository.Update(existingCart);
         }
-        public void SaveOrder(string userId)
+
+        public void DeleteCart(string userId)
         {
             var existingCart = cartRepository.TryGetByUserId(userId);
             if (existingCart != null)
             {
-                cartRepository.SaveForOrderPreparation(userId);
+                cartRepository.DeleteCart(userId);
             }
         }
     }

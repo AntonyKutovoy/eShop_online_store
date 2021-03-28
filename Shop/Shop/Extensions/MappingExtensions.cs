@@ -64,5 +64,59 @@ namespace Shop.Models
                 ImagePath = path
             };
         }
+
+        public static List<OrderItemViewModel> ToOrderItemsViewModel(this List<OrderItem> orderItems)
+        {
+            var items = new List<OrderItemViewModel>();
+            foreach (var orderItem in orderItems)
+            {
+                var item = orderItem.ToOrderItemViewModel();
+                items.Add(item);
+            }
+            return items;
+        }
+
+        public static OrderItemViewModel ToOrderItemViewModel(this OrderItem orderItem)
+        {
+            return new OrderItemViewModel
+            {
+                Id = orderItem.Id,
+                Amount = orderItem.Amount,
+                Product = orderItem.Product.ToProductViewModel()
+            };
+        }
+
+        //public static Order ToOrder(this OrderViewModel orderViewModel)
+        //{
+        //    return new Order
+        //    {
+        //        Id = orderViewModel.Id,
+        //        Address = orderViewModel.Address,
+        //        Status = orderViewModel.Status,
+        //        DateTime = orderViewModel.DateTime,
+        //        OrderItems = orderViewModel.OrderItems.ToOrderItems()
+        //    };
+        //}
+
+        //public static List<OrderItem> ToOrderItems(this List<OrderItemViewModel> orderItemsViewModel)
+        //{
+        //    var orderItems = new List<OrderItem>();
+        //    foreach (var orderItemViewModel in orderItemsViewModel)
+        //    {
+        //        var orderItem = orderItemViewModel.ToOrderItem();
+        //        orderItems.Add(orderItem);
+        //    }
+        //    return orderItems;
+        //}
+
+        //public static OrderItem ToOrderItem(this OrderItemViewModel orderItemViewModel)
+        //{
+        //    return new OrderItem
+        //    {
+        //        Id = orderItemViewModel.Id,
+        //        Amount = orderItemViewModel.Amount,
+        //        Product = orderItemViewModel.Product.ToProduct()
+        //    };
+        //}
     }
 }

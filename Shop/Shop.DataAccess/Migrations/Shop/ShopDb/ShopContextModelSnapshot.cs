@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.DataAccess;
 
-namespace Shop.DataAccess.Migrations.Shop.ShopDb
+namespace Shop.DataAccess.Migrations.Shop.ShopDB
 {
     [DbContext(typeof(ShopContext))]
     partial class ShopContextModelSnapshot : ModelSnapshot
@@ -30,7 +30,7 @@ namespace Shop.DataAccess.Migrations.Shop.ShopDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cart");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Shop.DataAccess.Models.CartItem", b =>
@@ -52,6 +52,50 @@ namespace Shop.DataAccess.Migrations.Shop.ShopDb
                     b.HasIndex("CartId");
 
                     b.ToTable("CartItem");
+                });
+
+            modelBuilder.Entity("Shop.DataAccess.Models.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Shop.DataAccess.Models.OrderItem", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ProductId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("Shop.DataAccess.Models.Product", b =>
@@ -87,6 +131,21 @@ namespace Shop.DataAccess.Migrations.Shop.ShopDb
 
                     b.HasOne("Shop.DataAccess.Models.Product", "Product")
                         .WithMany("CartItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Shop.DataAccess.Models.OrderItem", b =>
+                {
+                    b.HasOne("Shop.DataAccess.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shop.DataAccess.Models.Product", "Product")
+                        .WithMany("OrderItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

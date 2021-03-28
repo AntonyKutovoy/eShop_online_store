@@ -23,7 +23,7 @@ namespace Shop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ShopContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.EnableSensitiveDataLogging().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -34,6 +34,8 @@ namespace Shop
 
             services.AddTransient<CartService>();
             services.AddTransient<ProductService>();
+            services.AddTransient<OrderService>();
+            services.AddTransient<IOrderRepository, OrderDbRepository>();
             services.AddTransient<IProductRepository, ProductDbRepository>();
             services.AddTransient<ICartRepository, CartDbRerpository>();
             services.AddControllersWithViews();

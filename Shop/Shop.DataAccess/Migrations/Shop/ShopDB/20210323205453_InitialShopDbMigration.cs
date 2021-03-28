@@ -1,14 +1,14 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Shop.DataAccess.Migrations.Shop.ShopDb
+namespace Shop.DataAccess.Migrations.Shop.ShopDB
 {
     public partial class InitialShopDbMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Cart",
+                name: "Carts",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -16,7 +16,22 @@ namespace Shop.DataAccess.Migrations.Shop.ShopDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cart", x => x.Id);
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: true),
+                    DateTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -47,9 +62,9 @@ namespace Shop.DataAccess.Migrations.Shop.ShopDb
                 {
                     table.PrimaryKey("PK_CartItem", x => new { x.ProductId, x.CartId });
                     table.ForeignKey(
-                        name: "FK_CartItem_Cart_CartId",
+                        name: "FK_CartItem_Carts_CartId",
                         column: x => x.CartId,
-                        principalTable: "Cart",
+                        principalTable: "Carts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -60,10 +75,41 @@ namespace Shop.DataAccess.Migrations.Shop.ShopDb
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "OrderItem",
+                columns: table => new
+                {
+                    ProductId = table.Column<Guid>(nullable: false),
+                    OrderId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    Amount = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItem", x => new { x.ProductId, x.OrderId });
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CartItem_CartId",
                 table: "CartItem",
                 column: "CartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItem_OrderId",
+                table: "OrderItem",
+                column: "OrderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -72,7 +118,13 @@ namespace Shop.DataAccess.Migrations.Shop.ShopDb
                 name: "CartItem");
 
             migrationBuilder.DropTable(
-                name: "Cart");
+                name: "OrderItem");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");

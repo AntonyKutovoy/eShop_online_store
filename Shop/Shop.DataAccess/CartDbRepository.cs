@@ -24,7 +24,7 @@ namespace Shop.DataAccess
             }
             else
             {
-                cart.CartItems.Add(new CartItem { Cart = cart, Product = product, Amount = 1, Id = Guid.NewGuid() });
+                cart.CartItems.Add(new CartItem { Cart = cart, Product = product, Amount = 1, Id = Guid.NewGuid() });//настроить чтобы id генерировалась автоматически
             }
             shopContext.SaveChanges();
             return cart;
@@ -34,14 +34,13 @@ namespace Shop.DataAccess
         {
             var cart = new Cart { UserId = userId };
             shopContext.Carts.Add(cart);
-            cart.CartItems.Add(new CartItem { Cart = cart, Product = product, Amount = 1, Id = Guid.NewGuid() });
+            cart.CartItems.Add(new CartItem { Cart = cart, Product = product, Amount = 1, Id = Guid.NewGuid() });//натсроить чтобы id генерировалась автоматически
             shopContext.SaveChanges();
             return cart;
         }
 
-        public void SaveForOrderPreparation(string userId)//сделать вместо CartsForOrderPreparation Order
+        public void DeleteCart(string userId)//метод работает
         {
-            shopContext.CartsForOrderPreparation.Add(TryGetByUserId(userId));
             shopContext.Carts.Remove(TryGetByUserId(userId));
             shopContext.SaveChanges();
         }
@@ -59,7 +58,7 @@ namespace Shop.DataAccess
             shopContext.SaveChanges();
         }
 
-        public void Delete(Cart existingCart, Product product)//метод работает
+        public void DeleteItem(Cart existingCart, Product product)//метод работает
         {
             var cart = shopContext.Carts.FirstOrDefault(x => x.Id == existingCart.Id);
             var cartItem = cart.CartItems.FirstOrDefault(x => x.ProductId == product.Id);
