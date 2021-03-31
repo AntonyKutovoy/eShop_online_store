@@ -1,0 +1,54 @@
+﻿@model Shop.Models.UserOrdersViewModel
+
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-md-3 ">
+            <div class="list-group ">
+                <a asp-action="Index" class="list-group-item list-group-item-action">Данные пользователя</a>
+                <a asp-action="Edit" asp-route-id="@Model.User.Id" class="list-group-item list-group-item-action">Изменить данные</a>
+                <a asp-action="ChangePassword" asp-route-id="@Model.User.Id" class="list-group-item list-group-item-action">Изменить пароль</a>
+                <a asp-controller="Cart" asp-action="Index" class="list-group-item list-group-item-action">Корзина</a>
+                <a asp-action="GetAllOrders" class="list-group-item list-group-item-action">Заказы</a>
+                <a class="list-group-item list-group-item-action">
+                    <form method="post" asp-controller="Account" asp-action="Logout">
+                        <input type="submit" value="Выйти из профиля" style="background:none;border:none;padding:0">
+                    </form>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if (Model.User.Name == null)
+                            {
+                                <h4>@Model.User.Email</h4>
+                            }
+                            else
+                            {
+                                <h4>@Model.User.Name</h4>
+                            }
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form>
+                                <div class="form-group row">
+                                    @foreach (var order in Model.Orders)
+                                    {
+                                        <label for="name" class="col-4 col-form-label">@order.Id</label>
+                                        <div class="col-8">
+                                            <p class="font-weight-normal">@order.OrderItems.Count</p>
+                                        </div>
+                                    }
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

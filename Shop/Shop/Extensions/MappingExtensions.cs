@@ -86,37 +86,20 @@ namespace Shop.Models
             };
         }
 
-        //public static Order ToOrder(this OrderViewModel orderViewModel)
-        //{
-        //    return new Order
-        //    {
-        //        Id = orderViewModel.Id,
-        //        Address = orderViewModel.Address,
-        //        Status = orderViewModel.Status,
-        //        DateTime = orderViewModel.DateTime,
-        //        OrderItems = orderViewModel.OrderItems.ToOrderItems()
-        //    };
-        //}
-
-        //public static List<OrderItem> ToOrderItems(this List<OrderItemViewModel> orderItemsViewModel)
-        //{
-        //    var orderItems = new List<OrderItem>();
-        //    foreach (var orderItemViewModel in orderItemsViewModel)
-        //    {
-        //        var orderItem = orderItemViewModel.ToOrderItem();
-        //        orderItems.Add(orderItem);
-        //    }
-        //    return orderItems;
-        //}
-
-        //public static OrderItem ToOrderItem(this OrderItemViewModel orderItemViewModel)
-        //{
-        //    return new OrderItem
-        //    {
-        //        Id = orderItemViewModel.Id,
-        //        Amount = orderItemViewModel.Amount,
-        //        Product = orderItemViewModel.Product.ToProduct()
-        //    };
-        //}
+        public static OrderViewModel ToOrderViewModel(this Order order)
+        {
+            return new OrderViewModel
+            {
+                Id = order.Id,
+                UserAddress = order.UserAddress,
+                UserPhone = order.UserPhone,
+                UserFirstName = order.UserFirstName,
+                UserLastName = order.UserLastName,
+                UserEmail = order.UserEmail,
+                Status = order.Status,
+                DateTime = order.DateTime,
+                OrderItems = order.OrderItems.ToOrderItemsViewModel()
+            };
+        }
     }
 }

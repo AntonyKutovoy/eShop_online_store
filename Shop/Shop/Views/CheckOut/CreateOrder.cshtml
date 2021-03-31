@@ -48,14 +48,9 @@
                 </div>
                 <div class="mb-3">
                     <label asp-for="UserPhone">Номер телефона</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">+7</span>
-                        </div>
-                        <input type="tel" asp-for="UserPhone" class="form-control" required>
-                        <div class="invalid-feedback" style="width: 100%;">
-                            Пожалуйста введите номер телефона получателя.
-                        </div>
+                    <input type="tel" asp-for="UserPhone" class="form-control" required>
+                    <div class="invalid-feedback" style="width: 100%;">
+                        Пожалуйста введите номер телефона получателя.
                     </div>
                 </div>
                 <div class="mb-3">
@@ -87,8 +82,9 @@
                     }
                 </div>
                 <hr class="mb-4">
-                <button class="btn btn-dark btn-lg btn-block" type="submit" asp-controller="Order" asp-action="Save">Оформить заказ</button>
+                <button class="btn btn-dark btn-lg btn-block" type="submit" asp-controller="CheckOut" asp-action="SaveOrder">Оформить заказ</button>
             </form>
         </div>
     </div>
 </div>
+

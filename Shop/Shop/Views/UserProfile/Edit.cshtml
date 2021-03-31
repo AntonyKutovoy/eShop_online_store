@@ -8,6 +8,7 @@
                 <a asp-action="Edit" asp-route-id="@Model.Id" class="list-group-item list-group-item-action">Изменить данные</a>
                 <a asp-action="ChangePassword" asp-route-id="@Model.Id" class="list-group-item list-group-item-action">Изменить пароль</a>
                 <a asp-controller="Cart" asp-action="Index" class="list-group-item list-group-item-action">Корзина</a>
+                <a asp-action="GetAllOrders" class="list-group-item list-group-item-action">Заказы</a>
                 <a class="list-group-item list-group-item-action">
                     <form method="post" asp-controller="Account" asp-action="Logout">
                         <input type="submit" value="Выйти из профиля" style="background:none;border:none;padding:0">

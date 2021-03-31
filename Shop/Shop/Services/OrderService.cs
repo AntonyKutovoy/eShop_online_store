@@ -36,5 +36,19 @@ namespace Shop.Services
             orderRepository.AddInformation(existingOrder.Id, orderViewModel.UserAddress, orderViewModel.UserPhone,
                 orderViewModel.Status, orderViewModel.DateTime, orderViewModel.UserFirstName, orderViewModel.UserLastName, orderViewModel.UserEmail);
         }
+
+        public List<OrderViewModel> GetAll(string userId)
+        {
+            var userOrders = orderRepository.TryGetAllByUserId(userId);
+            var orderViewModels = new List<OrderViewModel>();
+            if (userOrders != null)
+            {
+                foreach(var userOrder in userOrders)
+                {
+                    orderViewModels.Add(userOrder.ToOrderViewModel());
+                }
+            }
+            return orderViewModels;
+        }
     }
 }

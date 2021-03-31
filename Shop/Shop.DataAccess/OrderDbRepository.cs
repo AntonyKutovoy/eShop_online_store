@@ -28,6 +28,20 @@ namespace Shop.DataAccess
             return null;
         }
 
+        public List<Order> TryGetAllByUserId(string userId)
+        {
+            var allOrders = GetAll();
+            var orders = new List<Order>();
+            foreach (var order in allOrders)
+            {
+                if (order.UserId == userId)
+                {
+                    orders.Add(order);
+                }
+            }
+            return orders;
+        }
+
         public List<Order> GetAll()
         {
             return shopContext.Orders.AsNoTracking().Include(o => o.OrderItems).ThenInclude(p => p.Product).ToList();

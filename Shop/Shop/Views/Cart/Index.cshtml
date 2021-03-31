@@ -60,7 +60,7 @@
                         <input type="hidden" name="@("Items[" + i + "].Value")" value="@item.Amount" />
                     }
                     @*<a class="btn btn-dark" href="/order/index/" role="button">Чекаут<i class="button"></i></a>*@
-                    <button class="btn btn-dark" name="orderbutton" value="" type="submit" asp-controller="Order" asp-action="Create">
+                    <button class="btn btn-dark" name="orderbutton" value="" type="submit" asp-controller="CheckOut" asp-action="CreateOrder">
                             Оформить заказ
                         </button>
                     </form>
