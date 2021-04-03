@@ -4,7 +4,7 @@ namespace Shop.Models
 {
     public class UserOrdersViewModel
     {
-        public IEnumerable<OrderViewModel> Orders { get; set; }
+        public List<OrderViewModel> Orders { get; set; }
         public UserViewModel User { get; set; }
     }
 }

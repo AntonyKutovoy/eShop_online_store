@@ -20,18 +20,15 @@ namespace Shop
         }
 
         public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ShopContext>(options =>
                 options.EnableSensitiveDataLogging().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             ConfigureCookieSettings(services);
-
             CreateIdentityIfNotCreated(services);
-
             services.AddTransient<CartService>();
             services.AddTransient<ProductService>();
             services.AddTransient<OrderService>();
@@ -47,18 +44,11 @@ namespace Shop
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
-            
             app.UseStaticFiles();
-
             app.UseCookiePolicy();
-            
-            app.UseAuthentication();    // подключение аутентификации
+            app.UseAuthentication(); 
             app.UseAuthorization();
-
-
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -88,7 +78,6 @@ namespace Shop
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -100,7 +89,7 @@ namespace Shop
                 options.LogoutPath = "/Account/Logout";
                 options.Cookie = new CookieBuilder
                 {
-                    IsEssential = true // required for auth to work without explicit user consent; adjust to suit your privacy policy
+                    IsEssential = true
                 };
             });
         }

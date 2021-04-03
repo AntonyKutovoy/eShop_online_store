@@ -11,6 +11,6 @@ namespace Shop.DataAccess
         void AddProduct(Guid orderId, Product product, int amount);
         void Create(string userId, Product product, int amount);
         void AddInformation(Guid orderId, string address, string userPhone, string status,
-            DateTime dateTime, string userFirstName, string userLastName, string userEmail);
+            DateTime dateTime, string userFirstName, string userLastName, string userEmail, string userComment);
     }
 }

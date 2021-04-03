@@ -6,6 +6,8 @@ namespace Shop.DataAccess.Models
     public class Order
     {
         public Guid Id { get; set; }
+        public int Number { get; set; }
+        public string UserComment { get; set; }
         public string UserAddress { get; set; }
         public string UserPhone { get; set; }
         public string UserFirstName { get; set; }

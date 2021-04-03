@@ -91,6 +91,8 @@ namespace Shop.Models
             return new OrderViewModel
             {
                 Id = order.Id,
+                Number = order.Number,
+                UserComment = order.UserComment,
                 UserAddress = order.UserAddress,
                 UserPhone = order.UserPhone,
                 UserFirstName = order.UserFirstName,

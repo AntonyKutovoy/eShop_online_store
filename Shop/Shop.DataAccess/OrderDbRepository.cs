@@ -56,14 +56,14 @@ namespace Shop.DataAccess
 
         public void Create(string userId, Product product, int amount)
         {
-            var order = new Order { UserId = userId };
+            var order = new Order { UserId = userId, Number = GetAll().Count + 1 };
             shopContext.Orders.Add(order);
             order.OrderItems.Add(new OrderItem { Order = order, Product = product, Amount = amount, Id = Guid.NewGuid() });
             shopContext.SaveChanges();
         }
 
         public void AddInformation(Guid orderId, string address, string userPhone, string status, DateTime dateTime,
-            string userFirstName, string userLastName, string userEmail)
+            string userFirstName, string userLastName, string userEmail, string userComment)
         {
             var order = shopContext.Orders.FirstOrDefault(x => x.Id == orderId);
             if (address != null)
@@ -74,12 +74,14 @@ namespace Shop.DataAccess
                 order.Status = status;
             if (dateTime != null)
                 order.DateTime = dateTime;
-            if (dateTime != null)
+            if (userFirstName != null)
                 order.UserFirstName = userFirstName;
-            if (dateTime != null)
+            if (userLastName != null)
                 order.UserLastName = userLastName;
-            if (dateTime != null)
+            if (userEmail != null)
                 order.UserEmail = userEmail;
+            if (userComment != null)
+                order.UserComment = userComment;
             shopContext.SaveChanges();
         }
     }

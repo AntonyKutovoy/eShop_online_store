@@ -34,7 +34,7 @@ namespace Shop.Services
         {
             var existingOrder = orderRepository.TryGetByUserId(userId);
             orderRepository.AddInformation(existingOrder.Id, orderViewModel.UserAddress, orderViewModel.UserPhone,
-                orderViewModel.Status, orderViewModel.DateTime, orderViewModel.UserFirstName, orderViewModel.UserLastName, orderViewModel.UserEmail);
+                orderViewModel.Status, orderViewModel.DateTime, orderViewModel.UserFirstName, orderViewModel.UserLastName, orderViewModel.UserEmail, orderViewModel.UserComment);
         }
 
         public List<OrderViewModel> GetAll(string userId)

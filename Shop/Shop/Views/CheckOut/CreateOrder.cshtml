@@ -68,6 +68,10 @@
                     </div>
                 </div>
                 <div class="mb-3">
+                    <label asp-for="UserComment">Комментарий к заказу</label>
+                    <textarea asp-for="UserComment" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
                     <input type="hidden" asp-for="Status" value="@("Создан")" />
                 </div>
                 <div class="mb-3">

@@ -32,21 +32,70 @@
                             <hr>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form>
-                                <div class="form-group row">
-                                    @foreach (var order in Model.Orders)
-                                    {
-                                        <label for="name" class="col-4 col-form-label">@order.Id</label>
-                                        <div class="col-8">
-                                            <p class="font-weight-normal">@order.OrderItems.Count</p>
+                    @for (int i = Model.Orders.Count - 1; i >= 0; i--)
+                    {
+                        var order = Model.Orders[i];
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5>Заказ № @order.Number</h5>
+                                                <h5><span class="badge badge-secondary">@order.Status</span></h5>
+                                            </div>
                                         </div>
-                                    }
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-7 order-md-2">
+                                                <div class="form-group row">
+                                                    <div class="col-5" style="color:darkgray">Дата оформления:</div>
+                                                    <div class="col-7">@order.DateTime.ToString("d")г.</div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-5" style="color:darkgray">Адрес доставки:</div>
+                                                    <div class="col-7">@order.UserAddress</div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-5" style="color:darkgray">Получатель:</div>
+                                                    <div class="col-7">@order.UserFirstName @order.UserLastName</div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-5" style="color:darkgray">Телефон:</div>
+                                                    <div class="col-7">@order.UserPhone</div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-5" style="color:darkgray">Email:</div>
+                                                    <div class="col-7">@order.UserEmail</div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-5" style="color:darkgray">Комменатрий:</div>
+                                                    <div class="col-7">@order.UserComment</div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-5" style="color:darkgray">Сумма заказа:</div>
+                                                    <div class="col-7"><h6>@order.FullPrice руб.</h6></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 order-md-1">
+                                                @for (int j = 0; j < order.AllAmount; j++)
+                                                {
+                                                    <div class="form-group row">
+                                                        <div class="col-md-4"><img width="85" height="85" src="@Url.Content(order.OrderItems[j].Product.ImagePath)" alt="Изображение товара" /></div>
+                                                        <div class="form-group col-md-8 ">
+                                                            <div class="col-md-12"><a href="/product/index/@order.OrderItems[j].Product.Id">@order.OrderItems[j].Product.Name</a></div>
+                                                            <div class="col-md-12"><h6>@order.OrderItems[j].Product.Price руб.</h6></div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
