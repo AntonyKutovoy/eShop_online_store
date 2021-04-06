@@ -1,26 +1,24 @@
 ﻿@model Shop.Models.ProductViewModel
 
-<div class="container">
-    <div class="album py-5">
-        <div class="row">
-            <div class="col-md-6 mb-4 mb-md-0">
-                <div class="mdb-lightbox">
-                    <div class="row product-gallery mx-1">
-                        <div class="col-12 mb-0">
-                            <img class="card-img-top" src="@Url.Content(Model.ImagePath)" alt="Изображение товара" />
-                        </div>
+<div class="album py-5">
+    <div class="row">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div class="mdb-lightbox">
+                <div class="row product-gallery mx-1">
+                    <div class="col-12 mb-0">
+                        <img class="card-img-top" src="@Url.Content(Model.ImagePath)" alt="Изображение товара" />
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <h5>@Model.Name</h5>
-                <p><span class="mr-1"><strong>@Model.Price руб</strong></span></p>
-                <p class="pt-1"> @Model.Description</p>
-                <div class="table-responsive mb-2">
-                </div>
-                <a class="btn btn-dark" href="/home/index?page=1" role="button">Продолжить покупки</a>
-                <a class="btn btn-dark" href="/cart/add/@Model.Id" role="button">Добавить в корзину</a>
+        </div>
+        <div class="col-md-6">
+            <h5>@Model.Name</h5>
+            <p><span class="mr-1"><strong>@Model.Price руб</strong></span></p>
+            <p class="pt-1"> @Model.Description</p>
+            <div class="table-responsive mb-2">
             </div>
+            <a class="btn btn-dark" href="/home/index?page=1" role="button">Продолжить покупки</a>
+            <a class="btn btn-dark" href="/cart/add/@Model.Id" role="button">Добавить в корзину</a>
         </div>
     </div>
 </div>

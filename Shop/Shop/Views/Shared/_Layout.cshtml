@@ -5,15 +5,13 @@
     @await Html.PartialAsync("CssPartial")
 </head>
 <body>
-    <div>
-        @await Html.PartialAsync("HeaderPartial")
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
-        @await Html.PartialAsync("FooterPartial")
+    @await Html.PartialAsync("HeaderPartial")
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
+    @await Html.PartialAsync("FooterPartial")
     @await Html.PartialAsync("ScriptsPartial")
     @RenderSection("Scripts", required: false)
 </body>

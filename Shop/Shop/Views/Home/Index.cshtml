@@ -1,55 +1,53 @@
 ﻿@model IEnumerable<Shop.Models.ProductViewModel>
 
-<div class="container">
-    <div class="d-flex justify-content-center">
-        <form asp-controller="Home" asp-action="Search" class="input-group col-8 py-5">
-            <input type="text" name="id" class="form-control" placeholder="Поиск" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-dark" href="" type="submit">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 15 18">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg>
-                </button>
-            </div>
-        </form>
-    </div>
-    <div class="album">
-        <div class="row">
-            @foreach (var product in Model)
-            {
-                <div class="col-md-3">
-                    <div class="card mb-4 box-shadow">
-                        <a href="/product/index/@product.Id">
-                            <img class="card-img-top" src="@Url.Content(product.ImagePath)" alt="Изображение товара" />
-                        </a>
-                        <div class="card-body">
-                            <a style="color:black" href="/product/index/@product.Id"><h5>@product.Name</h5></a>
-                            <h5>@product.Price руб</h5>
-                            <a class="btn btn-dark" href="/cart/add/@product.Id" role="button">Добавить в корзину</a>
-                        </div>
+<div class="d-flex justify-content-center">
+    <form asp-controller="Home" asp-action="Search" class="input-group col-8 py-5">
+        <input type="text" name="id" class="form-control" placeholder="Поиск" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-dark" href="" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 15 18">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+            </button>
+        </div>
+    </form>
+</div>
+<div class="album">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3">
+                <div class="card mb-4 box-shadow">
+                    <a href="/product/index/@product.Id">
+                        <img class="card-img-top" src="@Url.Content(product.ImagePath)" alt="Изображение товара" />
+                    </a>
+                    <div class="card-body">
+                        <a style="color:black" href="/product/index/@product.Id"><h5>@product.Name</h5></a>
+                        <h5>@product.Price руб</h5>
+                        <a class="btn btn-dark" href="/cart/add/@product.Id" role="button">Добавить в корзину</a>
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
-    <nav>
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous" style="color:black">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            @for (int i = 1; i <= (int)(ViewData["countPages"]); i++)
-            {
-                <li class="page-item"><a href="/home/@ViewData["methodForPagination"]?page=@i" class="page-link" style="color:black">@i</a></li>
-            }
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next" style="color:black">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
 </div>
+<nav>
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous" style="color:black">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        @for (int i = 1; i <= (int)(ViewData["countPages"]); i++)
+        {
+            <li class="page-item"><a href="/home/@ViewData["methodForPagination"]?page=@i" class="page-link" style="color:black">@i</a></li>
+        }
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next" style="color:black">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>

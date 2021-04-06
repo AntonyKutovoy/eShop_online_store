@@ -1,7 +1,84 @@
 ﻿@model Shop.Models.CartViewModel
 
+<form method="post">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+            <div class="py-4 text-center">
+                <h2><b>Корзина</b></h2>
+                <p class="text-center font-weight-light">
+                    Количество товара в корзине: <i class="text-info font-weight-bold">@Model.AllAmount</i>
+                </p>
+            </div>
+            <table class="table table-condensed table-responsive">
+                <thead>
+                    <tr>
+                        <th style="width:60%">Товар</th>
+                        <th style="width:12%">Цена</th>
+                        <th style="width:10%">Количество</th>
+                        <th style="width:16%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Items.Count; i++)
+                    {
+                        var item = Model.Items[i];
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-3 text-left">
+                                        <img src="@Url.Content(item.Product.ImagePath)" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                    </div>
+                                    <div class="col-md-9 text-left mt-sm-2">
+                                        <h4>@item.Product.Name</h4>
+                                        <p class="font-weight-light">Brand &amp; Name</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@item.Price &#8381;</td>
+                            <td>
+                                <input type="hidden" name="@("Items[" + i + "].Key")" value="@item.Id" />
+                                <input type="number" min="1" class="form-control text-center" name="@("Items[" + i + "].Value")" value="@item.Amount">
+                                <p class="text-center"><small>@item.Product.Price &#8381;/шт</small></p>
+                            </td>
+                            <td class="actions">
+                                <div class="text-right">
+                                    <button class="btn btn-white border-secondary bg-white btn-md mb-2" asp-action="Update">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    </button>
+                                    <a class="btn btn-white border-secondary bg-white btn-md mb-2" href="/cart/deleteitem?itemId=@item.Id" role="button"><i class="bi bi-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="float-right text-right">
+                <h4>Итого:</h4>
+                <h3>@Model.FullPrice &#8381;</h3>
+            </div>
+        </div>
+    </div>
+</form>
+<form method="post">
+    <div class="row mt-4 d-flex align-items-center">
+        <div class="col-sm-6 order-md-2 text-right">
+            @for (int i = 0; i < Model.Items.Count; i++)
+            {
+                var item = Model.Items[i];
+                <input type="hidden" name="@("Items[" + i + "].Key")" value="@item.Product.Id" />
+                <input type="hidden" name="@("Items[" + i + "].Value")" value="@item.Amount" />
+            }
+            <button class="btn btn-dark mb-4 btn-lg pl-5 pr-5" name="orderbutton" value="" type="submit" asp-controller="CheckOut" asp-action="CreateOrder">
+                Оформить заказ
+            </button>
+        </div>
+        <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+            <a href="/home/index?page=1"><i class="bi bi-arrow-left mr-2"></i>Продолжить покупки</a>
+        </div>
+    </div>
+</form>
 
-<div class="container">
+@*<div class="container">
     @if (Model.Items.Any())
     {
         <div class="row">
@@ -18,8 +95,8 @@
                                 </div>
                                 <div>
                                     <div><b>Количество</b></div>
-                                    <input type="hidden" name="@("Items[" + i + "].Key")" value="@item.Id" />
-                                    <input type="number" class="esh-basket-input" min="1" name="@("Items[" + i + "].Value")" value="@item.Amount" />
+                                    <input type="hidden" name="@(" Items[" + i + "].Key" )" value="@item.Id" />
+                                    <input type="number" class="esh-basket-input" min="1" name="@(" Items[" + i + "].Value" )" value="@item.Amount" />
                                 </div>
                                 <div>
                                     <div><b>Цена:</b></div>
@@ -53,14 +130,13 @@
                         </button>
                     </form>
                     <form method="post">
-                    @for (int i = 0; i < Model.Items.Count; i++)
-                    {
-                        var item = Model.Items[i];
-                        <input type="hidden" name="@("Items[" + i + "].Key")" value="@item.Product.Id" />
-                        <input type="hidden" name="@("Items[" + i + "].Value")" value="@item.Amount" />
-                    }
-                    @*<a class="btn btn-dark" href="/order/index/" role="button">Чекаут<i class="button"></i></a>*@
-                    <button class="btn btn-dark" name="orderbutton" value="" type="submit" asp-controller="CheckOut" asp-action="CreateOrder">
+                        @for (int i = 0; i < Model.Items.Count; i++)
+                        {
+                            var item = Model.Items[i];
+                            <input type="hidden" name="@(" Items[" + i + "].Key" )" value="@item.Product.Id" />
+                            <input type="hidden" name="@(" Items[" + i + "].Value" )" value="@item.Amount" />
+                        }
+                        <button class="btn btn-dark" name="orderbutton" value="" type="submit" asp-controller="CheckOut" asp-action="CreateOrder">
                             Оформить заказ
                         </button>
                     </form>
@@ -77,5 +153,4 @@
             </div>
         </div>
     }
-</div>
-
+</div>*@
