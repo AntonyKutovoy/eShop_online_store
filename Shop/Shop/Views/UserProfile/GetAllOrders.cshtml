@@ -78,12 +78,12 @@
                                             </div>
                                         </div>
                                         <div class="col-md-5 order-md-1">
-                                            @for (int j = 0; j < order.AllAmount; j++)
+                                            @for (int j = 0; j < order.OrderItems.Count; j++)
                                             {
                                                 <div class="form-group row">
                                                     <div class="col-md-4"><img width="110" height="110" src="@Url.Content(order.OrderItems[j].Product.ImagePath)" alt="Изображение товара" /></div>
                                                     <div class="form-group col-md-8 ">
-                                                        <div class="col-md-12"><a href="/product/index/@order.OrderItems[j].Product.Id">@order.OrderItems[j].Product.Name</a></div>
+                                                        <div class="col-md-12"><a class="text-info" href="/product/index/@order.OrderItems[j].Product.Id">@order.OrderItems[j].Product.Name</a></div>
                                                         <div class="col-md-12"><h6>@order.OrderItems[j].Product.Price руб.</h6></div>
                                                     </div>
                                                 </div>
