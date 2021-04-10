@@ -98,9 +98,26 @@ namespace Shop.Models
                 UserFirstName = order.UserFirstName,
                 UserLastName = order.UserLastName,
                 UserEmail = order.UserEmail,
+                UserId = order.UserId,
                 Status = order.Status,
                 DateTime = order.DateTime,
                 OrderItems = order.OrderItems.ToOrderItemsViewModel()
+            };
+        }
+
+        public static Order ToOrderInfo(this OrderViewModel orderViewModelInfo)
+        {
+            return new Order
+            {
+                Number = orderViewModelInfo.Number,
+                UserComment = orderViewModelInfo.UserComment,
+                UserAddress = orderViewModelInfo.UserAddress,
+                UserPhone = orderViewModelInfo.UserPhone,
+                UserFirstName = orderViewModelInfo.UserFirstName,
+                UserLastName = orderViewModelInfo.UserLastName,
+                UserEmail = orderViewModelInfo.UserEmail,
+                Status = orderViewModelInfo.Status,
+                DateTime = orderViewModelInfo.DateTime
             };
         }
     }

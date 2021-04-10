@@ -107,7 +107,7 @@ namespace Shop.Controllers
             var userViewModel = new UserViewModel { Id = user.Id, Email = user.Email, Name = user.FirstName, Surname = user.Surname, PhoneNumber = user.PhoneNumber };
             var userOrdersViewModel = new UserOrdersViewModel()
             {
-                Orders = orderService.GetAll(userManager.GetUserId(User)),
+                Orders = orderService.GetAllByUserId(userManager.GetUserId(User)),
                 User = userViewModel
             };
             return View(userOrdersViewModel);

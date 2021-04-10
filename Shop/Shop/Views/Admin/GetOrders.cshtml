@@ -1,0 +1,53 @@
+﻿@model List<Shop.Models.OrderViewModel>
+
+<div class="row pt-3">
+    <div class="col-md-3 py-4">
+        <div class="list-group ">
+            <a asp-controller="Admin" asp-action="GetOrders" class="list-group-item list-group-item-action">Заказы</a>
+            <a asp-controller="Users" asp-action="Index" class="list-group-item list-group-item-action">Пользователи</a>
+            <a asp-controller="Roles" asp-action="Index" class="list-group-item list-group-item-action">Роли</a>
+            <a class="list-group-item list-group-item-action">Продукты</a>
+        </div>
+    </div>
+    <div class="col-md-9 py-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Список заказов</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>Сумма</th>
+                                    <th>Статус</th>
+                                    <th>Пользователь (логин)</th>
+                                    <th>Дата</th>
+                                    <th>Время</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = Model.Count - 1; i >= 0; i--)
+                                {
+                                    var order = Model[i];
+                                    <tr class="table-row" data-href="/admin/getorder/@order.Id">
+                                        <td>@order.Number</td>
+                                        <td>@order.FullPrice &#8381;</td>
+                                        <td>@order.Status</td>
+                                        <td>@order.UserEmail</td>
+                                        <td>@order.DateTime.ToString("d")</td>
+                                        <td>@order.DateTime.ToString("t")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

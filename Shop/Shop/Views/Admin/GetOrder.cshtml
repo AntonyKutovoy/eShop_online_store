@@ -1,0 +1,104 @@
+﻿@model Shop.Models.OrderViewModel
+
+<div class="row pt-3">
+    <div class="col-md-3 py-4">
+        <div class="list-group ">
+            <a asp-controller="Admin" asp-action="GetOrders" class="list-group-item list-group-item-action">Заказы</a>
+            <a asp-controller="Users" asp-action="Index" class="list-group-item list-group-item-action">Пользователи</a>
+            <a asp-controller="Roles" asp-action="Index" class="list-group-item list-group-item-action">Роли</a>
+            <a class="list-group-item list-group-item-action">Продукты</a>
+        </div>
+    </div>
+    <div class="col-md-9 py-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Заказ № @Model.Number</h4>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <div class="col-5" style="color:darkgray">Дата и время оформления:</div>
+                                        <div class="col-7">@Model.DateTime.ToString("d") в @Model.DateTime.ToString("t")</div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-5" style="color:darkgray">Адрес доставки:</div>
+                                        <div class="col-7">@Model.UserAddress</div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-5" style="color:darkgray">Получатель:</div>
+                                        <div class="col-7">@Model.UserFirstName @Model.UserLastName</div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-5" style="color:darkgray">Телефон:</div>
+                                        <div class="col-7">@Model.UserPhone</div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-5" style="color:darkgray">Email:</div>
+                                        <div class="col-7">@Model.UserEmail</div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-5" style="color:darkgray">Комменатрий:</div>
+                                        <div class="col-7">@Model.UserComment</div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-5" style="color:darkgray">Сумма заказа:</div>
+                                        <div class="col-7">@Model.FullPrice &#8381;</div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-5" style="color:darkgray">Статус заказа:</div>
+                                        <div class="dropdown col-7">
+                                            @if (@Model.Status == "Создан")
+                                            {
+                                                <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    @Model.Status
+                                                </button>
+                                            }
+                                            @if (@Model.Status == "Обработан")
+                                            {
+                                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    @Model.Status
+                                                </button>
+                                            }
+                                            @if (@Model.Status == "В пути")
+                                            {
+                                                <button class="btn btn-warning btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    @Model.Status
+                                                </button>
+                                            }
+                                            @if (@Model.Status == "Отменен")
+                                            {
+                                                <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    @Model.Status
+                                                </button>
+                                            }
+                                            @if (@Model.Status == "Доставлен")
+                                            {
+                                                <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    @Model.Status
+                                                </button>
+                                            }
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" Asp-action="ChangeStatus" Asp-route-status="Создан" Asp-route-id="@Model.Id">Создан</a>
+                                                <a class="dropdown-item" Asp-action="ChangeStatus" Asp-route-status="Обработан" Asp-route-id="@Model.Id">Обработан</a>
+                                                <a class="dropdown-item" Asp-action="ChangeStatus" Asp-route-status="В пути" Asp-route-id="@Model.Id">В пути</a>
+                                                <a class="dropdown-item" Asp-action="ChangeStatus" Asp-route-status="Отменен" Asp-route-id="@Model.Id">Отменен</a>
+                                                <a class="dropdown-item" Asp-action="ChangeStatus" Asp-route-status="Доставлен" Asp-route-id="@Model.Id">Доставлен</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

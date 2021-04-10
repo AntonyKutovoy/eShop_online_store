@@ -10,17 +10,10 @@
                 <ul class="navbar-nav ml-auto">
                     @if (User.IsInRole("Admin"))
                     {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="GetOrders" role="button" aria-haspopup="true" aria-expanded="false">
                                 Панель администратора
                             </a>
-                            <form method="get">
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-controller="Product" asp-action="Create">Добавление товаров</a>
-                                    <a class="dropdown-item" asp-controller="Users" asp-action="Index">Пользователи</a>
-                                    <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Роли</a>
-                                </div>
-                            </form>
                         </li>
                     }
                     @if (!User.Identity.IsAuthenticated)

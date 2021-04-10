@@ -9,6 +9,7 @@ namespace Shop.Models
         public Guid Id { get; set; }
         public int Number { get; set; }
         public List<OrderItemViewModel> OrderItems { get; set; } = new List<OrderItemViewModel>();
+        public string UserId { get; set; }
         public string UserComment { get; set; }
         public string UserAddress { get; set; }
         public string UserPhone { get; set; }

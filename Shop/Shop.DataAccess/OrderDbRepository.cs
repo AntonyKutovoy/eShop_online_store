@@ -62,27 +62,46 @@ namespace Shop.DataAccess
             shopContext.SaveChanges();
         }
 
-        public void AddInformation(Guid orderId, string address, string userPhone, string status, DateTime dateTime,
-            string userFirstName, string userLastName, string userEmail, string userComment)
+        public void AddInformation(Order orderInfo)
+        {
+            var order = shopContext.Orders.FirstOrDefault(x => x.Id == orderInfo.Id);
+            if (orderInfo.UserAddress != null)
+                order.UserAddress = orderInfo.UserAddress;
+            if (orderInfo.UserPhone != null)
+                order.UserPhone = orderInfo.UserPhone;
+            if (orderInfo.Status != null)
+                order.Status = orderInfo.Status;
+            if (orderInfo.DateTime != null)
+                order.DateTime = orderInfo.DateTime;
+            if (orderInfo.UserFirstName != null)
+                order.UserFirstName = orderInfo.UserFirstName;
+            if (orderInfo.UserLastName != null)
+                order.UserLastName = orderInfo.UserLastName;
+            if (orderInfo.UserEmail != null)
+                order.UserEmail = orderInfo.UserEmail;
+            if (orderInfo.UserComment != null)
+                order.UserComment = orderInfo.UserComment;
+            shopContext.SaveChanges();
+        }
+
+        public void ChangeStatus(string status, Guid orderId)
         {
             var order = shopContext.Orders.FirstOrDefault(x => x.Id == orderId);
-            if (address != null)
-                order.UserAddress = address;
-            if (userPhone != null)
-                order.UserPhone = userPhone;
-            if (status != null)
-                order.Status = status;
-            if (dateTime != null)
-                order.DateTime = dateTime;
-            if (userFirstName != null)
-                order.UserFirstName = userFirstName;
-            if (userLastName != null)
-                order.UserLastName = userLastName;
-            if (userEmail != null)
-                order.UserEmail = userEmail;
-            if (userComment != null)
-                order.UserComment = userComment;
+            order.Status = status;
             shopContext.SaveChanges();
+        }
+
+        public Order TryGetByOrderId(Guid orderId)
+        {
+            var orders = GetAll();
+            foreach (var order in orders)
+            {
+                if (order.Id == orderId)
+                {
+                    return order;
+                }
+            }
+            return null;
         }
     }
 }

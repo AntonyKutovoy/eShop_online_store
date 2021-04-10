@@ -30,14 +30,14 @@ namespace Shop.Services
             }
         }
 
-        public void AddInformation(string userId, OrderViewModel orderViewModel)
+        public void AddInformation(string userId, OrderViewModel orderViewModelInfo)
         {
-            var existingOrder = orderRepository.TryGetByUserId(userId);
-            orderRepository.AddInformation(existingOrder.Id, orderViewModel.UserAddress, orderViewModel.UserPhone,
-                orderViewModel.Status, orderViewModel.DateTime, orderViewModel.UserFirstName, orderViewModel.UserLastName, orderViewModel.UserEmail, orderViewModel.UserComment);
+            var orderInfo = orderViewModelInfo.ToOrderInfo();
+            orderInfo.Id = orderRepository.TryGetByUserId(userId).Id;
+            orderRepository.AddInformation(orderInfo);
         }
 
-        public List<OrderViewModel> GetAll(string userId)
+        public List<OrderViewModel> GetAllByUserId(string userId)
         {
             var userOrders = orderRepository.TryGetAllByUserId(userId);
             var orderViewModels = new List<OrderViewModel>();
@@ -49,6 +49,31 @@ namespace Shop.Services
                 }
             }
             return orderViewModels;
+        }
+
+        public List<OrderViewModel> GetAll()
+        {
+            var allOrders = orderRepository.GetAll();
+            var orderViewModels = new List<OrderViewModel>();
+            if (allOrders != null)
+            {
+                foreach (var order in allOrders)
+                {
+                    orderViewModels.Add(order.ToOrderViewModel());
+                }
+            }
+            return orderViewModels;
+        }
+
+        public OrderViewModel GetOrder(Guid id)
+        {
+            return orderRepository.TryGetByOrderId(id).ToOrderViewModel();
+        }
+
+        public void ChangeStatus(string status, Guid id)
+        {
+            var existingOrder = orderRepository.TryGetByOrderId(id);
+            orderRepository.ChangeStatus(status, existingOrder.Id);
         }
     }
 }

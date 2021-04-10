@@ -8,9 +8,11 @@ namespace Shop.DataAccess
     {
         Order TryGetByUserId(string userId);
         List<Order> TryGetAllByUserId(string userId);
+        List<Order> GetAll();
         void AddProduct(Guid orderId, Product product, int amount);
         void Create(string userId, Product product, int amount);
-        void AddInformation(Guid orderId, string address, string userPhone, string status,
-            DateTime dateTime, string userFirstName, string userLastName, string userEmail, string userComment);
+        void AddInformation(Order orderInfo);
+        void ChangeStatus(string status, Guid orderId);
+        Order TryGetByOrderId(Guid orderId);
     }
 }

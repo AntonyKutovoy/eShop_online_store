@@ -1,7 +1,7 @@
 ﻿@model Shop.Models.UserOrdersViewModel
 
 <div class="row pt-3">
-    <div class="col-md-3 ">
+    <div class="col-md-3 py-4">
         <div class="list-group ">
             <a asp-action="Index" class="list-group-item list-group-item-action">Данные пользователя</a>
             <a asp-action="Edit" asp-route-id="@Model.User.Id" class="list-group-item list-group-item-action">Изменить данные</a>
@@ -15,7 +15,7 @@
             </a>
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 py-4">
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -41,7 +41,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <h5>Заказ № @order.Number</h5>
-                                            <h5><span class="badge badge-secondary">@order.Status</span></h5>
+                                            <h5><span class="badge badge-info badge-pill">@order.Status</span></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -74,17 +74,28 @@
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-5" style="color:darkgray">Сумма заказа:</div>
-                                                <div class="col-7"><h6>@order.FullPrice руб.</h6></div>
+                                                <div class="col-7"><h6>@order.FullPrice &#8381;</h6></div>
                                             </div>
                                         </div>
                                         <div class="col-md-5 order-md-1">
                                             @for (int j = 0; j < order.OrderItems.Count; j++)
                                             {
                                                 <div class="form-group row">
-                                                    <div class="col-md-4"><img width="110" height="110" src="@Url.Content(order.OrderItems[j].Product.ImagePath)" alt="Изображение товара" /></div>
+                                                    <div class="col-md-4">
+                                                        <a asp-controller="Product" asp-action="Index" asp-route-id="@order.OrderItems[j].Product.Id">
+                                                            <img class="img-fluid d-none d-md-block rounded mb-2 shadow" width="110" height="110" src="@Url.Content(order.OrderItems[j].Product.ImagePath)" alt="Изображение товара" />
+                                                        </a>
+                                                    </div>
                                                     <div class="form-group col-md-8 ">
-                                                        <div class="col-md-12"><a class="text-info" href="/product/index/@order.OrderItems[j].Product.Id">@order.OrderItems[j].Product.Name</a></div>
-                                                        <div class="col-md-12"><h6>@order.OrderItems[j].Product.Price руб.</h6></div>
+                                                        <div class="col-md-12"><a class="text-info" asp-controller="Product" asp-action="Index" asp-route-id="@order.OrderItems[j].Product.Id">@order.OrderItems[j].Product.Name</a></div>
+                                                        @if (order.OrderItems[j].Amount > 1)
+                                                        {
+                                                            <div class="col-md-12"><h6>@order.OrderItems[j].Product.Price &#8381; <small>х @order.OrderItems[j].Amount</small></h6></div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="col-md-12"><h6>@order.OrderItems[j].Product.Price &#8381;</h6></div>
+                                                        }
                                                     </div>
                                                 </div>
                                             }
