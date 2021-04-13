@@ -1,0 +1,57 @@
+﻿@model Shop.Models.RegisterViewModel
+
+<div class="row pt-3">
+    <div class="col-md-3 py-4">
+        <div class="list-group ">
+            <a asp-action="GetOrders" class="list-group-item list-group-item-action">Заказы</a>
+            <a asp-action="GetUsers" class="list-group-item list-group-item-action">Пользователи</a>
+            <a asp-controller="Roles" asp-action="Index" class="list-group-item list-group-item-action">Роли</a>
+            <a asp-controller="Product" asp-action="Create" class="list-group-item list-group-item-action">Продукты</a>
+        </div>
+    </div>
+    <div class="col-md-9 py-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Добавление пользователя</h4>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="CreateUser" method="post">
+                            <div asp-validation-summary="All" class="text-danger offset-4 col-8"></div>
+                            <div class="form-group row">
+                                <label asp-for="Email" class="col-4 col-form-label">Email (логин)</label>
+                                <div class="col-8">
+                                    <input asp-for="Email" class="form-control here" type="email" required>
+                                    <span asp-validation-for="Email" class="sr-only"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="Password" class="col-4 col-form-label">Пароль</label>
+                                <div class="col-8">
+                                    <input asp-for="Password" class="form-control here" type="password" required>
+                                    <span asp-validation-for="Password" class="sr-only"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="PasswordConfirm" class="col-4 col-form-label">Подтвердите пароль</label>
+                                <div class="col-8">
+                                    <input asp-for="PasswordConfirm" class="form-control here" type="password" required>
+                                    <span asp-validation-for="PasswordConfirm" class="sr-only"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-4 col-8">
+                                    <button name="submit" type="submit" class="btn btn-info">Сохранить данные</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
