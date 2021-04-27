@@ -1,0 +1,41 @@
+﻿
+<div class="row pt-3">
+    <div class="col-md-3 py-4">
+        <div class="list-group ">
+            <a asp-action="GetOrders" class="list-group-item list-group-item-action">Заказы</a>
+            <a asp-action="GetUsers" class="list-group-item list-group-item-action">Пользователи</a>
+            <a asp-action="GetRoles" class="list-group-item list-group-item-action">Роли</a>
+            <a asp-action="CreateProduct" class="list-group-item list-group-item-action">Продукты</a>
+        </div>
+    </div>
+    <div class="col-md-9 py-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Добавление роли</h4>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="CreateRole" method="post">
+                            <div asp-validation-summary="All" class="text-danger offset-4 col-8"></div>
+                            <div class="form-group row">
+                                <label for="name" class="col-4 col-form-label">Название новой роли</label>
+                                <div class="col-8">
+                                    <input name="name" class="form-control" type="text" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-4 col-8 text-right">
+                                    <button type="submit" class="btn btn-info">Сохранить данные</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

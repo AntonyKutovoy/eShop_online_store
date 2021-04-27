@@ -1,4 +1,4 @@
-﻿@model List<Shop.DataAccess.ApplicationUser>
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
 
 <div class="row pt-3">
     <div class="col-md-3 py-4">
@@ -14,35 +14,28 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>Список пользователей</h4>
+                        <h4>Список ролей</h4>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 table-responsive">
                         <table class="table table-hover table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Email (логин)</th>
-                                    <th>Имя</th>
-                                    <th>Фамилия</th>
-                                    <th>Телефон</th>
-                                </tr>
-                            </thead>
                             <tbody>
-                                @for (int i = Model.Count - 1; i >= 0; i--)
+                                @foreach (var role in Model)
                                 {
-                                    var user = Model[i];
-                                    <tr class="table-row" data-href="/Admin/GetUser/@user.Id">
-                                        <td>@user.Email</td>
-                                        <td>@user.FirstName</td>
-                                        <td>@user.Surname</td>
-                                        <td>@user.PhoneNumber</td>
+                                    <tr class="table-row" data-href="/Admin/GetRole/@role.Id">
+                                        <td>@role.Name</td>
+                                        <td>
+                                            <div class="text-right">
+                                                <a class="btn btn-outline-info btn-sm" asp-action="DeleteRole" asp-route-id="@role.Id" role="button">Удалить</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
                         <div class="text-right">
-                            <a class="btn btn-info" asp-action="CreateUser" role="button">Добавить пользователя</a>
+                            <a class="btn btn-info" asp-action="CreateRole" role="button">Добавить роль</a>
                         </div>
                     </div>
                 </div>

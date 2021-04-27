@@ -17,11 +17,13 @@ namespace Shop.Controllers
     {
         private readonly OrderService orderService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public AdminController(OrderService orderService, UserManager<ApplicationUser> userManager)
+        public AdminController(OrderService orderService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.orderService = orderService;
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         public IActionResult GetOrders() => View(orderService.GetAll());
@@ -154,6 +156,86 @@ namespace Shop.Controllers
                 }
             }
             return RedirectToAction("GetUsers");
+        }
+
+        public IActionResult GetRoles() => View(roleManager.Roles.ToList());
+
+        public async Task<ActionResult> DeleteRole(string id)
+        {
+            var role = await roleManager.FindByIdAsync(id);
+            if (role != null)
+            {
+                var result = await roleManager.DeleteAsync(role);
+                if (!result.Succeeded)
+                {
+                    result.AddErrorsTo(ModelState);
+                }
+            }
+            return RedirectToAction("GetRoles");
+        }
+
+        public IActionResult CreateRole() => View();
+
+        [HttpPost]
+        public async Task<ActionResult> CreateRole(string name)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                var result = await roleManager.CreateAsync(new IdentityRole(name));
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("GetRoles");
+                }
+                else
+                {
+                    result.AddErrorsTo(ModelState);
+                }
+            }
+            return View();
+        }
+
+        public async Task<ActionResult> EditUserRights(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var userRoles = await userManager.GetRolesAsync(user);
+                var allRoles = roleManager.Roles.ToList();
+                var model = new ChangeRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserEmail = user.Email,
+                    UserRoles = userRoles,
+                    AllRoles = allRoles
+                };
+                return View(model);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditUserRights(string userId, List<string> roles)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var userRoles = await userManager.GetRolesAsync(user);
+                var addedRoles = roles.Except(userRoles);
+                var removedRoles = userRoles.Except(roles);
+                var result = await userManager.AddToRolesAsync(user, addedRoles);
+                if (!result.Succeeded)
+                {
+                    result.AddErrorsTo(ModelState);
+                    return RedirectToAction("GetUser", new { id = userId });
+                }
+                result = await userManager.RemoveFromRolesAsync(user, removedRoles);
+                if (!result.Succeeded)
+                {
+                    result.AddErrorsTo(ModelState);
+                }
+                return RedirectToAction("GetUser", new { id = userId });
+            }
+            return NotFound();
         }
     }
 }

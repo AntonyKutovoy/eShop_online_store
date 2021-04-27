@@ -5,8 +5,8 @@
         <div class="list-group ">
             <a asp-action="GetOrders" class="list-group-item list-group-item-action">Заказы</a>
             <a asp-action="GetUsers" class="list-group-item list-group-item-action">Пользователи</a>
-            <a asp-controller="Roles" asp-action="Index" class="list-group-item list-group-item-action">Роли</a>
-            <a asp-controller="Product" asp-action="Create" class="list-group-item list-group-item-action">Продукты</a>
+            <a asp-action="GetRoles" class="list-group-item list-group-item-action">Роли</a>
+            <a asp-action="CreateProduct" class="list-group-item list-group-item-action">Продукты</a>
         </div>
     </div>
     <div class="col-md-9 py-4">
@@ -44,13 +44,16 @@
                                 <p class="font-weight-normal">@Model.PhoneNumber</p>
                             </div>
                         </div>
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Действия
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" Asp-action="ChangeUserPassword" Asp-route-id="@Model.Id">Смена пароля</a>
-                            <a class="dropdown-item" Asp-action="EditUser" Asp-route-id="@Model.Id">Редактирование данных</a>
-                            <a class="dropdown-item" Asp-action="DeleteUser" Asp-route-id="@Model.Id">Удалить пользователя</a>
+                        <div class="text-right">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Действия
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" Asp-action="ChangeUserPassword" Asp-route-id="@Model.Id">Смена пароля</a>
+                                <a class="dropdown-item" Asp-action="EditUser" Asp-route-id="@Model.Id">Редактирование данных</a>
+                                <a class="dropdown-item" Asp-action="EditUserRights" Asp-route-id="@Model.Id">Права доступа</a>
+                                <a class="dropdown-item" Asp-action="DeleteUser" Asp-route-id="@Model.Id">Удалить пользователя</a>
+                            </div>
                         </div>
                     </div>
                 </div>
