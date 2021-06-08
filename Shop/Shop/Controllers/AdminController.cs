@@ -194,9 +194,9 @@ namespace Shop.Controllers
             return View();
         }
 
-        public async Task<ActionResult> EditUserRights(string userId)
+        public async Task<ActionResult> EditUserRights(string id)
         {
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await userManager.FindByIdAsync(id);
             if (user != null)
             {
                 var userRoles = await userManager.GetRolesAsync(user);
@@ -214,9 +214,9 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditUserRights(string userId, List<string> roles)
+        public async Task<ActionResult> EditUserRights(string id, List<string> roles)
         {
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await userManager.FindByIdAsync(id);
             if (user != null)
             {
                 var userRoles = await userManager.GetRolesAsync(user);
@@ -226,14 +226,14 @@ namespace Shop.Controllers
                 if (!result.Succeeded)
                 {
                     result.AddErrorsTo(ModelState);
-                    return RedirectToAction("GetUser", new { id = userId });
+                    return RedirectToAction("GetUser", new { id = id });
                 }
                 result = await userManager.RemoveFromRolesAsync(user, removedRoles);
                 if (!result.Succeeded)
                 {
                     result.AddErrorsTo(ModelState);
                 }
-                return RedirectToAction("GetUser", new { id = userId });
+                return RedirectToAction("GetUser", new { id = id });
             }
             return NotFound();
         }

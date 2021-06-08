@@ -12,10 +12,10 @@ namespace Shop.DataAccess
             {
                 products.Add(new Product
                 {
-                    Name = "Test" + i,
+                    Name = "Product" + " " + i,
                     Price = i * 10000,
-                    Description = "Test" + i,
-                    ImagePath = "/images/products/Test.png"
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!",
+                    ImagePath = "/images/products/700x400.gif"
                 });
             }
             return products;
