@@ -1,0 +1,65 @@
+﻿@model Shop.Models.ProductViewModel
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group my-4">
+            <a asp-action="GetOrders" class="list-group-item list-group-item-action">Заказы</a>
+            <a asp-action="GetUsers" class="list-group-item list-group-item-action">Пользователи</a>
+            <a asp-action="GetRoles" class="list-group-item list-group-item-action">Роли</a>
+            <a asp-action="AddProduct" class="list-group-item list-group-item-action">Добавление товаров</a>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card my-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Добавление нового товара</h4>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="AddProduct" asp-antiforgery="true" enctype="multipart/form-data">
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="Name">Название</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" asp-for="Name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="Price">Цена</label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="Price" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="Description">Описание</label>
+                                </div>
+                                <div class="col-8">
+                                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="File">Загрузить изображение</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="file" asp-for="File" class="form-control-file">
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-info">Сохранить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

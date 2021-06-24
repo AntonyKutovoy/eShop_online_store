@@ -15,12 +15,14 @@ namespace Shop.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
+        private readonly ProductService productService;
         private readonly OrderService orderService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public AdminController(OrderService orderService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminController(ProductService productService, OrderService orderService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+            this.productService = productService;
             this.orderService = orderService;
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -236,6 +238,15 @@ namespace Shop.Controllers
                 return RedirectToAction("GetUser", new { id = id });
             }
             return NotFound();
+        }
+
+        public IActionResult AddProduct() => View();
+
+        [HttpPost]
+        public IActionResult AddProduct(ProductViewModel productViewModel)
+        {
+            productService.Create(productViewModel);
+            return RedirectToAction("AddProduct");
         }
     }
 }
