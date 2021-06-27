@@ -14,7 +14,7 @@ namespace Shop.DataAccess
             this.shopContext = shopContext;
         }
 
-        public Cart AddProduct(Guid id, Product product)//метод работает
+        public Cart AddProduct(Guid id, Product product)
         {
             var cart = shopContext.Carts.FirstOrDefault(x => x.Id == id);
             var existingSameProduct = cart.CartItems.FirstOrDefault(x => x.ProductId == product.Id);
@@ -24,13 +24,13 @@ namespace Shop.DataAccess
             }
             else
             {
-                cart.CartItems.Add(new CartItem { Cart = cart, Product = product, Amount = 1, Id = Guid.NewGuid() });//настроить чтобы id генерировалась автоматически
+                cart.CartItems.Add(new CartItem { Cart = cart, Product = product, Amount = 1, Id = Guid.NewGuid() });
             }
             shopContext.SaveChanges();
             return cart;
         }
 
-        public Cart Create(string userId, Product product)//метод работает
+        public Cart Create(string userId, Product product)
         {
             var cart = new Cart { UserId = userId };
             shopContext.Carts.Add(cart);
@@ -39,26 +39,26 @@ namespace Shop.DataAccess
             return cart;
         }
 
-        public void DeleteCart(string userId)//метод работает
+        public void DeleteCart(string userId)
         {
             shopContext.Carts.Remove(TryGetByUserId(userId));
             shopContext.SaveChanges();
         }
 
-        public Cart TryGetByUserId(string userId)//метод работает
+        public Cart TryGetByUserId(string userId)
         {
             var cart = shopContext.Carts.Include(c => c.CartItems).ThenInclude(p => p.Product).FirstOrDefault(i => i.UserId == userId);
             return cart;
         }
 
-        public void Update(Cart existingCart)//метод работает
+        public void Update(Cart existingCart)
         {
             var cart = shopContext.Carts.FirstOrDefault(x => x.Id == existingCart.Id);
             cart = existingCart;
             shopContext.SaveChanges();
         }
 
-        public void DeleteItem(Cart existingCart, Product product)//метод работает
+        public void DeleteItem(Cart existingCart, Product product)
         {
             var cart = shopContext.Carts.FirstOrDefault(x => x.Id == existingCart.Id);
             var cartItem = cart.CartItems.FirstOrDefault(x => x.ProductId == product.Id);

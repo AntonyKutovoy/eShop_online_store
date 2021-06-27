@@ -14,7 +14,6 @@ namespace Shop
         {
             var host = CreateHostBuilder(args)
                         .Build();
-
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -25,10 +24,8 @@ namespace Shop
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 await AppIdentityDbContextSeeder.SeedAsync(userManager, roleManager);
             }
-
             host.Run();
         }
-
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args).

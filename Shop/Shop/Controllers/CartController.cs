@@ -13,24 +13,24 @@ namespace Shop.Controllers
     {
         private readonly CartService cartService;
         private readonly ProductService productService;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public CartController(CartService cartService, ProductService productService, UserManager<ApplicationUser> userManager)
         {
             this.cartService = cartService;
             this.productService = productService;
-            _userManager = userManager;
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            return View(cartService.GetCurrentCart(_userManager.GetUserId(User)));
+            return View(cartService.GetCurrentCart(userManager.GetUserId(User)));
         }
 
         public IActionResult Add(Guid id)
         {
             var product = productService.GetProduct(id);
-            cartService.AddProductToCart(product, _userManager.GetUserId(User));
+            cartService.AddProductToCart(product, userManager.GetUserId(User));
             return RedirectToAction("Index");
         }
 
@@ -38,7 +38,7 @@ namespace Shop.Controllers
         {
             foreach (var item in items)
             {
-                cartService.UpdateAmount(_userManager.GetUserId(User), item.Key, item.Value);
+                cartService.UpdateAmount(userManager.GetUserId(User), item.Key, item.Value);
             }
             
             return RedirectToAction("Index");
@@ -46,7 +46,7 @@ namespace Shop.Controllers
 
         public IActionResult DeleteItem(Guid itemId)
         {
-            cartService.DeleteItem(_userManager.GetUserId(User), itemId);
+            cartService.DeleteItem(userManager.GetUserId(User), itemId);
             return RedirectToAction("Index");
         }
 

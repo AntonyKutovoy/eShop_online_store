@@ -26,7 +26,7 @@
                                     <label asp-for="Name">Название</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" asp-for="Name" class="form-control">
+                                    <input type="text" asp-for="Name" class="form-control" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -34,7 +34,7 @@
                                     <label asp-for="Price">Цена</label>
                                 </div>
                                 <div class="col-8">
-                                    <input asp-for="Price" class="form-control">
+                                    <input asp-for="Price" class="form-control" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -42,7 +42,7 @@
                                     <label asp-for="Description">Описание</label>
                                 </div>
                                 <div class="col-8">
-                                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                                    <textarea asp-for="Description" class="form-control" rows="3" required></textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -50,11 +50,11 @@
                                     <label asp-for="File">Загрузить изображение</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="file" asp-for="File" class="form-control-file">
+                                    <input type="file" asp-for="File" class="form-control-file" required>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <button type="submit" class="btn btn-info">Сохранить</button>
+                                <button type="submit" class="btn btn-info">Добавить</button>
                             </div>
                         </form>
                     </div>

@@ -3,20 +3,19 @@ using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess;
 using Shop.Extensions;
 using Shop.Models;
-using Shop.Services;
 using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         [HttpGet]
@@ -31,10 +30,9 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false).Result;
+                var result = signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false).Result;
                 if (result.Succeeded)
                 {
-                    // проверяем, принадлежит ли URL приложению
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -69,10 +67,10 @@ namespace Shop.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
-                var result = _userManager.CreateAsync(user, model.Password).Result;
+                var result = userManager.CreateAsync(user, model.Password).Result;
                 if (result.Succeeded)
                 {
-                    _signInManager.SignInAsync(user, false);
+                    signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -87,7 +85,7 @@ namespace Shop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
     }

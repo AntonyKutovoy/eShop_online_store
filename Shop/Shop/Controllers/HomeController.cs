@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Shop.DataAccess;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Models;
 using Shop.Services;
 using System.Collections.Generic;
@@ -37,16 +35,17 @@ namespace Shop.Controllers
             return productsOnCurrentPage;
         }
 
-        public IActionResult Search(string id, int page = 1)
+        public IActionResult Search(string name, int page = 1)
         {
+            name = name.ToUpper();
             var products = productService.GetAllProducts();
             var searchProducts = new List<ProductViewModel>();
-            if (!string.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(name))
             {
-                searchProducts = products.Where(x => x.Name.Contains(id)).ToList();
+                searchProducts = products.Where(x => x.Name.ToUpper().Contains(name)).ToList();
             }
             var productsOnCurrentPage = CreatePagination(searchProducts, page);
-            ViewData["methodForPagination"] = "Search/" + id;
+            ViewData["methodForPagination"] = "Search/" + name;
             return View("Index", productsOnCurrentPage);
         }
     }

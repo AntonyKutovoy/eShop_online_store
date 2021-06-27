@@ -9,15 +9,15 @@ namespace Shop.Pages.Shared.Components.BasketComponent
 {
     public class Cart : ViewComponent
     {
-        private readonly CartService _cartService;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly CartService cartService;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public Cart(CartService basketService, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
-            _cartService = basketService;
-            _signInManager = signInManager;
-            _userManager = userManager;
+            cartService = basketService;
+            this.signInManager = signInManager;
+            this.userManager = userManager;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string userName)
@@ -28,15 +28,15 @@ namespace Shop.Pages.Shared.Components.BasketComponent
 
         private CartViewModel GetBasketViewModel()
         {
-            if (_signInManager.IsSignedIn(HttpContext.User))
+            if (signInManager.IsSignedIn(HttpContext.User))
             {
-                var userId = _userManager.GetUserId(HttpContext.User);
-                return _cartService.GetCurrentCart(userId);
+                var userId = userManager.GetUserId(HttpContext.User);
+                return cartService.GetCurrentCart(userId);
             }
             string anonymousId = GetBasketIdFromCookie();
             if (anonymousId == null)
                 return new CartViewModel();
-            return _cartService.GetCurrentCart(anonymousId);
+            return cartService.GetCurrentCart(anonymousId);
         }
 
         private string GetBasketIdFromCookie()

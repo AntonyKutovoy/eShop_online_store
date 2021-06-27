@@ -15,7 +15,7 @@ namespace Shop.DataAccess
                     Name = "Product" + " " + i,
                     Price = i * 10000,
                     Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!",
-                    ImagePath = "/images/products/700x400.gif"
+                    ImagePath = "/images/products/720x400.png"
                 });
             }
             return products;
