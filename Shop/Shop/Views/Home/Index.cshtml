@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Shop.Models.ProductViewModel>
+﻿@model Shop.Models.IndexViewModel
 
 <div class="row">
     <div class="col-lg-12">
@@ -54,7 +54,7 @@
             </a>
         </div>
         <div class="row">
-            @foreach (var product in Model)
+            @foreach (var product in Model.ProductViewModels)
             {
                 <div class="col-lg-4 col-md-6 mt-4">
                     <div class="card h-100 box-shadow">
@@ -76,23 +76,23 @@
     </div>
 </div>
 
-<nav>
-    <ul class="pagination justify-content-center">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous" style="color:black">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-            </a>
-        </li>
-        @for (int i = 1; i <= (int)(ViewData["countPages"]); i++)
-        {
-            <li class="page-item"><a href="/home/@ViewData["methodForPagination"]?page=@i" class="page-link" style="color:black">@i</a></li>
-        }
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next" style="color:black">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+
+

@@ -15,25 +15,45 @@ namespace Shop.Controllers
         {
             this.productService = productService;
         }
+
         public IActionResult Index(int page = 1)
         {
             var products = productService.GetAllProducts();
             var productsOnCurrentPage = CreatePagination(products, page);
-            ViewData["methodForPagination"] = "Index";
             return View(productsOnCurrentPage);
         }
 
-        private List<ProductViewModel> CreatePagination(List<ProductViewModel> products, int page)
+        private IndexViewModel CreatePagination(List<ProductViewModel> products, int page)
         {
             var productsOnCurrentPage = products.Skip((page - 1) * productsCountPerPage).Take(productsCountPerPage).ToList();
-            var countPages = products.Count / productsCountPerPage;
-            if (products.Count % productsCountPerPage > 0)
+            PageViewModel pageViewModel = new PageViewModel(products.Count, page, productsOnCurrentPage.Count);
+            IndexViewModel indexViewModel = new IndexViewModel
             {
-                countPages++;
-            }
-            ViewData["countPages"] = countPages;
-            return productsOnCurrentPage;
+                PageViewModel = pageViewModel,
+                ProductViewModels = productsOnCurrentPage
+            };
+            return indexViewModel;
         }
+
+        //public IActionResult Index(int page = 1)
+        //{
+        //    var products = productService.GetAllProducts();
+        //    var productsOnCurrentPage = CreatePagination(products, page);
+        //    ViewData["methodForPagination"] = "Index";
+        //    return View(productsOnCurrentPage);
+        //}
+
+        //private List<ProductViewModel> CreatePagination(List<ProductViewModel> products, int page)
+        //{
+        //    var productsOnCurrentPage = products.Skip((page - 1) * productsCountPerPage).Take(productsCountPerPage).ToList();
+        //    var countPages = products.Count / productsCountPerPage;
+        //    if (products.Count % productsCountPerPage > 0)
+        //    {
+        //        countPages++;
+        //    }
+        //    ViewData["countPages"] = countPages;
+        //    return productsOnCurrentPage;
+        //}
 
         public IActionResult Search(string name, int page = 1)
         {
@@ -46,7 +66,7 @@ namespace Shop.Controllers
             }
             var productsOnCurrentPage = CreatePagination(searchProducts, page);
             ViewData["methodForPagination"] = "Search/" + name;
-            return View("Index", productsOnCurrentPage);
+            return View("Index", productsOnCurrentPage); 
         }
     }
 }
