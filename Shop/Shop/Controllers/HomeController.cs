@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Models;
 using Shop.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +9,8 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
-        private const int productsCountPerPage = 12;
+        private const int pageSize = 12;
+        private const int maxPages = 3;
         private readonly ProductService productService;
 
         public HomeController(ProductService productService)
@@ -19,20 +21,60 @@ namespace Shop.Controllers
         public IActionResult Index(int page = 1)
         {
             var products = productService.GetAllProducts();
-            var productsOnCurrentPage = CreatePagination(products, page);
-            return View(productsOnCurrentPage);
+            var pager = CreatePagination(products, page);
+            return View(pager);
         }
 
-        private IndexViewModel CreatePagination(List<ProductViewModel> products, int page)
+        private PagerViewModel CreatePagination(List<ProductViewModel> products, int currentPage)
         {
-            var productsOnCurrentPage = products.Skip((page - 1) * productsCountPerPage).Take(productsCountPerPage).ToList();
-            var pageViewModel = new PageViewModel(products.Count, page, productsOnCurrentPage.Count, productsCountPerPage);
-            var indexViewModel = new IndexViewModel
+            var productsOnCurrentPage = products.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            var totalPages = (int)Math.Ceiling((decimal)products.Count / (decimal)pageSize);
+            if (currentPage < 1)
             {
-                PageViewModel = pageViewModel,
-                ProductViewModels = productsOnCurrentPage
+                currentPage = 1;
+            }
+            else if (currentPage > totalPages)
+            {
+                currentPage = totalPages;
+            }
+            int startPage, endPage;
+            if (totalPages <= maxPages)
+            {
+                startPage = 1;
+                endPage = totalPages;
+            }
+            else
+            {
+                var maxPagesBeforeCurrentPage = (int)Math.Floor((decimal)maxPages / (decimal)2);
+                var maxPagesAfterCurrentPage = (int)Math.Ceiling((decimal)maxPages / (decimal)2) - 1;
+                if (currentPage <= maxPagesBeforeCurrentPage)
+                {
+                    startPage = 1;
+                    endPage = maxPages;
+                }
+                else if (currentPage + maxPagesAfterCurrentPage >= totalPages)
+                {
+                    startPage = totalPages - maxPages + 1;
+                    endPage = totalPages;
+                }
+                else
+                {
+                    startPage = currentPage - maxPagesBeforeCurrentPage;
+                    endPage = currentPage + maxPagesAfterCurrentPage;
+                }
+            }
+            var pages = Enumerable.Range(startPage, (endPage + 1) - startPage);
+            return new PagerViewModel()
+            {
+                TotalItems = products.Count,
+                CurrentPage = currentPage,
+                PageSize = pageSize,
+                TotalPages = totalPages,
+                StartPage = startPage,
+                EndPage = endPage,
+                Pages = pages,
+                ProductsOnCurrentPage = productsOnCurrentPage
             };
-            return indexViewModel;
         }
 
         public IActionResult Search(string name, int page = 1)

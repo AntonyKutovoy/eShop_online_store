@@ -1,4 +1,4 @@
-﻿@model Shop.Models.IndexViewModel
+﻿@model Shop.Models.PagerViewModel
 
 <div class="row">
     <div class="col-12">
@@ -45,7 +45,7 @@
             </a>
         </div>
         <div class="row">
-            @foreach (var product in Model.ProductViewModels)
+            @foreach (var product in Model.ProductsOnCurrentPage)
             {
                 <div class="col-3 mt-4">
                     <div class="card h-100 box-shadow">
@@ -68,33 +68,30 @@
 </div>
 <nav>
     <ul class="pagination justify-content-center mt-4">
-        @if (Model.PageViewModel.HasPreviousPage)
+        @if (Model.HasPreviousPage)
         {
             <li class="page-item">
-                <a class="page-link text-info" asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)">Назад</a>
+                <a class="page-link text-info" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)">Назад</a>
             </li>
         }
-        @if (!Model.PageViewModel.HasPreviousPage)
+        @if (!Model.HasPreviousPage)
         {
             <li class="page-item disabled">
                 <a class="page-link" href="#" tabindex="-1">Назад</a>
             </li>
         }
-
-        @for (int i = 0; i < Model.PageViewModel.PagesForDisplayCount; i++)
+        @foreach (var pageNumber in Model.Pages)
         {
-
-            <li class="page-item"><a class="page-link text-info" asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber)">@i</a></li>
-            @*<li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber)">@i</a></li>*@
+            <li class="page-item"><a href="/home/Index?page=@pageNumber" class="page-link text-info">@pageNumber</a></li>
         }
 
-        @if (Model.PageViewModel.HasNextPage)
+        @if (Model.HasNextPage)
         {
             <li class="page-item">
-                <a class="page-link text-info" asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)">Вперед</a>
+                <a class="page-link text-info" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)">Вперед</a>
             </li>
         }
-        @if (!Model.PageViewModel.HasNextPage)
+        @if (!Model.HasNextPage)
         {
             <li class="page-item disabled">
                 <a class="page-link" href="#" tabindex="-1">Вперед</a>
@@ -102,14 +99,5 @@
         }
     </ul>
 </nav>
-
-@*<nav>
-    <ul class="pagination justify-content-center">
-        @for (int i = 1; i <= (int)(ViewData["countPages"]); i++)
-        {
-            <li class="page-item"><a href="/home/@ViewData["methodForPagination"]?page=@i" class="page-link" style="color:black">@i</a></li>
-        }
-    </ul>
-</nav>*@
 
 
