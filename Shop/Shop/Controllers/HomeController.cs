@@ -26,34 +26,14 @@ namespace Shop.Controllers
         private IndexViewModel CreatePagination(List<ProductViewModel> products, int page)
         {
             var productsOnCurrentPage = products.Skip((page - 1) * productsCountPerPage).Take(productsCountPerPage).ToList();
-            PageViewModel pageViewModel = new PageViewModel(products.Count, page, productsOnCurrentPage.Count);
-            IndexViewModel indexViewModel = new IndexViewModel
+            var pageViewModel = new PageViewModel(products.Count, page, productsOnCurrentPage.Count, productsCountPerPage);
+            var indexViewModel = new IndexViewModel
             {
                 PageViewModel = pageViewModel,
                 ProductViewModels = productsOnCurrentPage
             };
             return indexViewModel;
         }
-
-        //public IActionResult Index(int page = 1)
-        //{
-        //    var products = productService.GetAllProducts();
-        //    var productsOnCurrentPage = CreatePagination(products, page);
-        //    ViewData["methodForPagination"] = "Index";
-        //    return View(productsOnCurrentPage);
-        //}
-
-        //private List<ProductViewModel> CreatePagination(List<ProductViewModel> products, int page)
-        //{
-        //    var productsOnCurrentPage = products.Skip((page - 1) * productsCountPerPage).Take(productsCountPerPage).ToList();
-        //    var countPages = products.Count / productsCountPerPage;
-        //    if (products.Count % productsCountPerPage > 0)
-        //    {
-        //        countPages++;
-        //    }
-        //    ViewData["countPages"] = countPages;
-        //    return productsOnCurrentPage;
-        //}
 
         public IActionResult Search(string name, int page = 1)
         {
@@ -65,8 +45,7 @@ namespace Shop.Controllers
                 searchProducts = products.Where(x => x.Name.ToUpper().Contains(name)).ToList();
             }
             var productsOnCurrentPage = CreatePagination(searchProducts, page);
-            ViewData["methodForPagination"] = "Search/" + name;
-            return View("Index", productsOnCurrentPage); 
+            return View("Index", productsOnCurrentPage);
         }
     }
 }
