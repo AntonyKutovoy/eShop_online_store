@@ -10,7 +10,7 @@ namespace Shop.Controllers
     public class HomeController : Controller
     {
         private const int pageSize = 12;
-        private const int maxPages = 3;
+        private const int maxPages = 5;
         private readonly ProductService productService;
 
         public HomeController(ProductService productService)
