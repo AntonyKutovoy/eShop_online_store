@@ -18,7 +18,7 @@ namespace Shop.Controllers
             this.productService = productService;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page)
         {
             var products = productService.GetAllProducts();
             var pager = CreatePagination(products, page);
@@ -77,17 +77,17 @@ namespace Shop.Controllers
             };
         }
 
-        public IActionResult Search(string name, int page = 1)
+        public IActionResult Search(string name)
         {
-            name = name.ToUpper();
             var products = productService.GetAllProducts();
             var searchProducts = new List<ProductViewModel>();
             if (!string.IsNullOrEmpty(name))
             {
+                name = name.ToUpper();
                 searchProducts = products.Where(x => x.Name.ToUpper().Contains(name)).ToList();
             }
-            var productsOnCurrentPage = CreatePagination(searchProducts, page);
-            return View("Index", productsOnCurrentPage);
+            return View(searchProducts);
         }
+
     }
 }

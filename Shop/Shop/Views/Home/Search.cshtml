@@ -1,9 +1,9 @@
-﻿@model Shop.Models.PagerViewModel
+﻿@model List<Shop.Models.ProductViewModel>
 
 <div class="row">
     <div class="col-12">
         <div class="d-flex justify-content-center my-4">
-            <form method="get" asp-controller="Home" asp-action="Search" class="input-group col-10">
+            <form asp-controller="Home" asp-action="Search" class="input-group col-10">
                 <input type="text" name="name" class="form-control" placeholder="Поиск" aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-dark" href="" type="submit">
@@ -45,14 +45,14 @@
             </a>
         </div>
         <div class="row">
-            @foreach (var product in Model.ProductsOnCurrentPage)
+            @foreach (var product in Model)
             {
                 <div class="col-3 mt-4">
                     <div class="card h-100 box-shadow">
-                        <a asp-controller="Product" asp-route-id="@product.Id"><img class="card-img-top" src="@Url.Content(product.ImagePath)" alt="Изображение товара"></a>
+                        <a asp-controller="Product" asp-action="Index" asp-route-id="@product.Id"><img class="card-img-top" src="@Url.Content(product.ImagePath)" alt="Изображение товара"></a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a class="text-dark" asp-controller="Product" asp-route-id="@product.Id">@product.Name</a>
+                                <a class="text-dark" asp-controller="Product" asp-action="Index" asp-route-id="@product.Id">@product.Name</a>
                             </h4>
                             <h5>@product.Price &#8381;</h5>
                             <p class="card-text">@product.Description</p>
@@ -66,45 +66,5 @@
         </div>
     </div>
 </div>
-<nav>
-    <ul class="pagination justify-content-center mt-4">
-        @if (Model.HasPreviousPage)
-        {
-            <li class="page-item">
-                <a class="page-link text-dark" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)">Назад</a>
-            </li>
-        }
-        @if (!Model.HasPreviousPage)
-        {
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Назад</a>
-            </li>
-        }
-        @foreach (var pageNumber in Model.Pages)
-        {
-            @if (pageNumber == Model.CurrentPage)
-            {
-                <li class="page-item active"><a asp-action="Index" asp-route-page="@pageNumber" class="page-link bg-info border-info  text-white">@pageNumber</a></li>
-            }
-            else
-            {
-                <li class="page-item"><a asp-action="Index" asp-route-page="@pageNumber" class="page-link text-dark">@pageNumber</a></li>
-            }
-        }
-
-        @if (Model.HasNextPage)
-        {
-            <li class="page-item">
-                <a class="page-link text-dark" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)">Вперед</a>
-            </li>
-        }
-        @if (!Model.HasNextPage)
-        {
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Вперед</a>
-            </li>
-        }
-    </ul>
-</nav>
 
 
