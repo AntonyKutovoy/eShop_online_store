@@ -71,7 +71,7 @@ namespace Shop.Controllers
                 if (result.Succeeded)
                 {
                     signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login");
                 }
                 else
                 {
