@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using Shop.DataAccess;
 using Shop.Services;
 using System;
@@ -44,6 +45,7 @@ namespace Shop
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSerilogRequestLogging();
             app.UseRouting();
             app.UseStaticFiles();
             app.UseCookiePolicy();
