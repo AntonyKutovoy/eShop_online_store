@@ -9,6 +9,6 @@ namespace Shop.Models
         public int Amount { get; set; }
 
         public decimal Price => Amount * Product.Price;
-
+        //4
     }
 }
